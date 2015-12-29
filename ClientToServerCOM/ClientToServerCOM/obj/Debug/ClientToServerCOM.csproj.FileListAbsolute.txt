@@ -1,0 +1,4 @@
+c:\users\vlad\documents\visual studio 2012\Projects\ClientToServerCOM\ClientToServerCOM\bin\Debug\ClientToServerCOM.dll
+c:\users\vlad\documents\visual studio 2012\Projects\ClientToServerCOM\ClientToServerCOM\bin\Debug\ClientToServerCOM.pdb
+c:\users\vlad\documents\visual studio 2012\Projects\ClientToServerCOM\ClientToServerCOM\obj\Debug\ClientToServerCOM.dll
+c:\users\vlad\documents\visual studio 2012\Projects\ClientToServerCOM\ClientToServerCOM\obj\Debug\ClientToServerCOM.pdb
