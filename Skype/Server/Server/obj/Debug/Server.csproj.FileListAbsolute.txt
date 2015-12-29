@@ -11,3 +11,16 @@ C:\Users\Vlad\Documents\Visual Studio 2012\Projects\Server\Server\obj\Debug\Serv
 C:\Users\Vlad\Documents\Visual Studio 2012\Projects\Server\Server\bin\Debug\ServerToClientCOM.dll
 C:\Users\Vlad\Documents\Visual Studio 2012\Projects\Server\Server\bin\Debug\ServerToClientCOM.pdb
 C:\Users\Vlad\Documents\Visual Studio 2012\Projects\Server\Server\obj\Debug\Server.Form1.resources
+C:\Users\Vlad\Documents\GitHub\Skype-C-\Skype\Server\Server\bin\Debug\Server.exe.config
+C:\Users\Vlad\Documents\GitHub\Skype-C-\Skype\Server\Server\obj\Debug\Server.exe
+C:\Users\Vlad\Documents\GitHub\Skype-C-\Skype\Server\Server\obj\Debug\Server.pdb
+C:\Users\Vlad\Documents\GitHub\Skype-C-\Skype\Server\Server\bin\Debug\Server.exe
+C:\Users\Vlad\Documents\GitHub\Skype-C-\Skype\Server\Server\bin\Debug\Server.pdb
+C:\Users\Vlad\Documents\GitHub\Skype-C-\Skype\Server\Server\bin\Debug\ClientToServerCOM.dll
+C:\Users\Vlad\Documents\GitHub\Skype-C-\Skype\Server\Server\bin\Debug\ServerToClientCOM.dll
+C:\Users\Vlad\Documents\GitHub\Skype-C-\Skype\Server\Server\bin\Debug\ClientToServerCOM.pdb
+C:\Users\Vlad\Documents\GitHub\Skype-C-\Skype\Server\Server\bin\Debug\ServerToClientCOM.pdb
+C:\Users\Vlad\Documents\GitHub\Skype-C-\Skype\Server\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
+C:\Users\Vlad\Documents\GitHub\Skype-C-\Skype\Server\Server\obj\Debug\Server.Form1.resources
+C:\Users\Vlad\Documents\GitHub\Skype-C-\Skype\Server\Server\obj\Debug\Server.Properties.Resources.resources
+C:\Users\Vlad\Documents\GitHub\Skype-C-\Skype\Server\Server\obj\Debug\Server.csproj.GenerateResource.Cache

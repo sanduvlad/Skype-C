@@ -52,7 +52,7 @@ namespace Server
                 string, string> pair in clients)
             {
                 ServerToClientCOM.RemotableObject remote = (ServerToClientCOM.RemotableObject)Activator.GetObject(typeof(ServerToClientCOM.RemotableObject), pair.Key);
-                remote.MessageReceived("sdad", "asdaas");
+                remote.MessageReceived(pair.Key, pair.Value);
             }
         }
 
