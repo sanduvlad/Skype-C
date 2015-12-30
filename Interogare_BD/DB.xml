@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<users>
+  <user username="admin1">
+    <parola>admin1</parola>
+    <nume>Cobuz</nume>
+    <prenume>Veniamin</prenume>
+    <varsta>21</varsta>
+  </user>
+  <user username="admin2">
+    <parola>admin2</parola>
+    <nume>Sandu</nume>
+    <prenume>Vlad</prenume>
+    <varsta>21</varsta>
+  </user>
+  <user username="admin3">
+    <parola>admin3</parola>
+    <nume>Calara</nume>
+    <prenume>Ionut</prenume>
+    <varsta>21</varsta>
+  </user>
+  <user username="admin7">
+    <parola>admin7</parola>
+    <nume>Budinca</nume>
+    <prenume>Branzica</prenume>
+    <varsta>99</varsta>
+  </user>
+</users>
