@@ -9,8 +9,6 @@ namespace Interogare_BD
 {
     class Program
     {
-        const string XML_FILE_PATH = "DB.xml";
-
         static void Main(string[] args)
         {
             Console.WriteLine("1 - Log in, 2 - Register");
@@ -86,7 +84,7 @@ namespace Interogare_BD
                     Console.WriteLine("Username deja folosit");
                 }
             }
-            Console.WriteLine("yoyo");
+            Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }
     }
