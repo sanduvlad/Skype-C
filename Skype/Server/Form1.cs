@@ -41,6 +41,7 @@ namespace Server
         private void button1_Click(object sender, EventArgs e)
         {
             svrToCli.SendMessage("message", "user2", cliToSvr.getClientURL("user1"));
+            //svrToCli.SendMessage("message", "user2", cliToSvr.getClientURL("user2"));
         }
     }
 }

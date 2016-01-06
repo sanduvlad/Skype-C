@@ -20,7 +20,12 @@ namespace Client
         {
             //TCP - Initialize object reference to server proxy
             //************
-            TcpChannel channel = new TcpChannel(8081);
+            TcpChannel channel = new TcpChannel();
+            try
+            {
+               channel  = new TcpChannel(8081);
+            }
+            catch { }
             ChannelServices.RegisterChannel(channel, false);
 
             remoteServerOBJ = (ClientToServerCOM.RemotableObject)Activator.GetObject(typeof(ClientToServerCOM.RemotableObject), "tcp://" + serverIP + ":8080" + "/ClientToServer");
