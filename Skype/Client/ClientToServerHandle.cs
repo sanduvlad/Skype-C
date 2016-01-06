@@ -16,6 +16,11 @@ namespace Client
         private string ipAddresss = string.Empty;
         private ClientToServerCOM.RemotableObject remoteServerOBJ;
 
+        public String GetServerAddress()
+        {
+            return "localhost";
+        }
+
         public void InitConnectionToServer(string serverIP)
         {
             //TCP - Initialize object reference to server proxy
@@ -47,7 +52,8 @@ namespace Client
             throw new NotImplementedException();
         }
 
-        public void SignIn(string userName, string password)
+
+        public bool SignIn(string userName, string password)
         {
             //TCP - Initialize client object proxy
             //************
@@ -67,15 +73,20 @@ namespace Client
                     IP_address = ip.ToString();
                 }
             }
+            ipAddresss = IP_address;
 
             string clientChannelURL = "tcp://" + IP_address + ":8081" + "/" + userName;
 
-            remoteServerOBJ.SignIn(userName, password, clientChannelURL);
+            if (remoteServerOBJ.SignIn(userName, password, clientChannelURL))
+                return true; 
+            return false;
         }
 
-        public void SignOut(string userName)
+        public bool SignOut(string userName)
         {
-            throw new NotImplementedException();
+            string clientChannelURL = "tcp://" + ipAddresss + ":8081" + "/" + userName;
+            return remoteServerOBJ.SignOut(userName, clientChannelURL);
+
         }
     }
 }

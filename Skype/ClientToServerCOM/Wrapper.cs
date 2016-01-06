@@ -25,14 +25,14 @@ namespace ClientToServerCOM
             return instance;
         }
 
-        public void SignIn(string userName, string password, string channelURL)
+        public bool SignIn(string userName, string password, string channelURL)
         {
-            comToServer.SignIn(userName, password, channelURL);
+            return comToServer.SignIn(userName, password, channelURL);
         }
 
-        public void SignOut(string userName)
+        public bool SignOut(string userName,string channelURL)
         {
-            comToServer.SignOut(userName);
+           return comToServer.SignOut(userName, channelURL);
         }
 
         public void SearchFriends(string searchBy)

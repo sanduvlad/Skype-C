@@ -32,14 +32,15 @@ namespace Server
             throw new NotImplementedException();
         }
 
-        public void SignIn(string userName, string password, string channelURL)
+        public bool SignIn(string userName, string password, string channelURL)
         {
             Clients.Add(userName, channelURL);
+            return true;
         }
 
-        public void SignOut(string userName)
+        public bool SignOut(string userName, string channelUR)
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }
