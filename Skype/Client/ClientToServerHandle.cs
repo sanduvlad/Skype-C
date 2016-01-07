@@ -38,21 +38,16 @@ namespace Client
             //************
         }
 
-        public void AddFriend(string userName)
+        public void AddFriend(string userName,string friend)
         {
-            throw new NotImplementedException();
+            remoteServerOBJ.AddFriend(userName,friend);
         }
 
-        public void SearchFriends(string searchBy)
+        public List<List<string>> GetFriends(string username)
         {
-            throw new NotImplementedException();
+            return remoteServerOBJ.GetFriends(username);
         }
-
-        public void SetAvailableState(ClientToServerCOM.AvailableState state)
-        {
-            throw new NotImplementedException();
-        }
-
+        
 
         public int SignIn(string userName, string password)
         {

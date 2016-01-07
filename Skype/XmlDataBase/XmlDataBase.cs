@@ -143,7 +143,7 @@ namespace Interogare
 
         public int AddFriend(string username, string friend)
         {
-            var myNewElement = new XElement("friend", "ion");
+            var myNewElement = new XElement("friend", friend);
 
             XElement xDoc = XElement.Load("DB.xml");
             if (xDoc == null)
@@ -242,13 +242,14 @@ namespace Interogare
 
         public List<List<string>> AllFriendsDetails(List<string> friends)
         {
-            List<List<string>> Details = null;
-            int i = 0, j = 0;
+            List<List<string>> Details = new List<List<String>>();
+            List<string> user = new List<String>();
             XElement xDoc = XElement.Load("DB.xml");
 
             foreach (string el in friends)
             {
-                Details[i][j] = el;
+                user.Clear();
+                user.Add(el);
                 
                 IEnumerable<XElement> address =
                     from elm in xDoc.Elements("users").Elements("user")
@@ -257,11 +258,11 @@ namespace Interogare
 
                 foreach (XElement elm in address)
                 {
-                    Details[i][j] = (string)elm.Element("username");
-                    Details[i][j+1] = (string)elm.Element("status");
+                    user.Add((string)elm.Element("username"));
+                    user.Add((string)elm.Element("status"));
                 }
-                i++;
-                j = 0;
+
+                Details.Add(user);
             }
             return Details;
         }

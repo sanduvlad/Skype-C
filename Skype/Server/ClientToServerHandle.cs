@@ -19,19 +19,16 @@ namespace Server
             return Clients[userName];
         }
 
-        public void AddFriend(string userName)
+        public void AddFriend(string userName,string friend)
         {
-            throw new NotImplementedException();
+            db.AddFriend(userName, friend);
         }
 
-        public void SearchFriends(string searchBy)
-        {
-            throw new NotImplementedException();
-        }
+      
 
-        public void SetAvailableState(ClientToServerCOM.AvailableState state)
+        public List<List<string>> GetFriends(string username)
         {
-            throw new NotImplementedException();
+            return db.AllFriends(username);
         }
 
         public int Register(string userName, string password, string email, string nume)

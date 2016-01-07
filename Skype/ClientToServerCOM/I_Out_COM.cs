@@ -21,8 +21,7 @@ namespace ClientToServerCOM
         int Register(string userName, string password, string email,string nume);
         void ChangeStatus(string userName, String status);
         List<string> SearchUsers(string query, string username);
-        void SearchFriends(string searchBy);
-        void AddFriend(string userName);
-        void SetAvailableState(AvailableState state);
+        List<List<string>> GetFriends(string username);
+        void AddFriend(string userName,string friend);
     }
 }

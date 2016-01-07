@@ -46,20 +46,16 @@ namespace ClientToServerCOM
             return comToServer.Register(userName, password,  email,  nume);
         }
 
-        public void SearchFriends(string searchBy)
+        public List<List<string>> GetFriends(string username)
         {
-            comToServer.SearchFriends(searchBy);
+            return comToServer.GetFriends(username);
         }
 
-        public void AddFriend(string userName)
+        public void AddFriend(string userName,string friend)
         {
-            comToServer.AddFriend(userName);
+            comToServer.AddFriend(userName,friend);
         }
-
-        public void SetAvailableState(AvailableState state)
-        {
-            comToServer.SetAvailableState(state);
-        }
+        
 
         public List<string> SearchUsers(string query, string username)
         {

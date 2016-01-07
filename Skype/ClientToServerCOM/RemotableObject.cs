@@ -31,19 +31,14 @@ namespace ClientToServerCOM
 
         }
 
-        public void SearchFriends(string searchBy)
+        public void AddFriend(string userName,string friend)
         {
-            Wrapper.GetInstance().SearchFriends(searchBy);
+            Wrapper.GetInstance().AddFriend(userName,friend);
         }
 
-        public void AddFriend(string userName)
+        public List<List<string>> GetFriends(string username)
         {
-            Wrapper.GetInstance().AddFriend(userName);
-        }
-
-        public void SetAvailableState(AvailableState state)
-        {
-            Wrapper.GetInstance().SetAvailableState(state);
+            return Wrapper.GetInstance().GetFriends(username);
         }
 
         public List<string> SearchUsers(string query, string username)

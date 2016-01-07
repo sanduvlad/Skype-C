@@ -58,9 +58,11 @@ namespace Client
                 loginResponseLabel.Text = "";
                 UsernameApplicationTextBox.Text = username;
                 StatusesComboBox.SelectedItem = "Online";
+                ListFriends();
             }
             else
             {
+                friendsList.Items.Clear();
                 username = UsernameLoginTextBox.Text;
                 loginPanel.Visible = true;
                 mainPanel.Visible = false;
@@ -118,11 +120,25 @@ namespace Client
             }
         }
 
+        private void ListFriends()
+        {
+            friendsList.Items.Clear();
+            var choices = new Dictionary<string, string>();
+            foreach (List<string> user in cliToSvr.GetFriends(username))
+            {
+                choices[user.ElementAt(0)] = user.ElementAt(1) + " - " + user.ElementAt(2);
+            }
+            friendsList.DataSource = new BindingSource(choices, null);
+            friendsList.DisplayMember = "Value";
+            friendsList.ValueMember = "Key";
+           
+        }
+
         private void addFriendsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string curItem = addFriendsList.SelectedItem.ToString();
-            addFriendsList.SelectedItems.Remove(addFriendsList.SelectedItem);
-            addFriendsList.Refresh();
+            string curItem =addFriendsList.SelectedItem.ToString();
+            cliToSvr.AddFriend(username, curItem);
+            SearchFriendsButton.PerformClick();
         }
     }
 }
