@@ -37,8 +37,8 @@ namespace Client
             else
             {
                 username = iUsername.Text;
-                loginPanel.Visible = false;
-                mainPanel.Visible = true;
+                loginPanel.Visible = true;
+                mainPanel.Visible = false;
             }
         }
         
@@ -51,5 +51,6 @@ namespace Client
                 mainPanel.Visible = false;
             }
         }
+        
     }
 }

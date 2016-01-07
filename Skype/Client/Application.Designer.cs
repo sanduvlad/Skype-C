@@ -125,6 +125,7 @@
             this.bLogin.TabIndex = 24;
             this.bLogin.Text = "Log In";
             this.bLogin.UseVisualStyleBackColor = true;
+            this.bLogin.Click += new System.EventHandler(this.bLogin_Click);
             // 
             // LabelPassword
             // 
@@ -174,7 +175,7 @@
             // logOutToolStripMenuItem
             // 
             this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.logOutToolStripMenuItem.Text = "Log Out";
             this.logOutToolStripMenuItem.Click += new System.EventHandler(this.logOutToolStripMenuItem_Click);
             // 
@@ -183,8 +184,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 662);
-            this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.loginPanel);
+            this.Controls.Add(this.mainPanel);
             this.Name = "Application";
             this.Text = "Skype";
             this.loginPanel.ResumeLayout(false);
