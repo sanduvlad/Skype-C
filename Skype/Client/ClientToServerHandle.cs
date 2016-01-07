@@ -83,8 +83,13 @@ namespace Client
 
         public int SignOut(string userName)
         {
-            string clientChannelURL = "tcp://" + ipAddresss + ":8081" + "/" + userName;
-            return remoteServerOBJ.SignOut(userName, clientChannelURL);
+            return remoteServerOBJ.SignOut(userName);
+
+        }
+
+        public void ChangeStatus(string userName,String status)
+        {
+            remoteServerOBJ.ChangeStatus(userName, status);
 
         }
 

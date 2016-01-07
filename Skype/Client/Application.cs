@@ -56,6 +56,8 @@ namespace Client
                 loginPanel.Visible = false;
                 mainPanel.Visible = true;
                 loginResponseLabel.Text = "";
+                UsernameApplicationTextBox.Text = username;
+                StatusesComboBox.SelectedItem = "Online";
             }
             else
             {
@@ -81,6 +83,12 @@ namespace Client
                 ResponseRegisterLabel.Text = "Register Failed";
             }
                 
+        }
+
+        private void StatusesComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cliToSvr.ChangeStatus(username,StatusesComboBox.Text.ToLower());
+
         }
     }
 }

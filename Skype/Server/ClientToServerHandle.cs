@@ -47,7 +47,7 @@ namespace Server
 
         public int SignIn(string userName, string password, string channelURL)
         {
-            if (Clients.ContainsValue(userName))
+            if (Clients.ContainsKey(userName))
                 return 2;
             else
             {
@@ -63,8 +63,16 @@ namespace Server
             
         }
 
-        public int SignOut(string userName, string channelUR)
+        public void ChangeStatus(string userName, String status)
         {
+            db.ChangeStatus(userName, status);
+
+        }
+
+        public int SignOut(string userName)
+        {
+            db.LogOut(userName);
+            Clients.Remove(userName);
             return 1;
         }
     }

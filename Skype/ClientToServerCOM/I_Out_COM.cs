@@ -17,8 +17,9 @@ namespace ClientToServerCOM
     public interface I_Out_COM
     {
         int SignIn(string userName, string password, string channelURL);
-        int SignOut(string userName, string channelURL);
+        int SignOut(string userName);
         int Register(string userName, string password, string email,string nume);
+        void ChangeStatus(string userName, String status);
         void SearchFriends(string searchBy);
         void AddFriend(string userName);
         void SetAvailableState(AvailableState state);

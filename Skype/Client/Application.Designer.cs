@@ -67,6 +67,8 @@
             this.menuStrip3 = new System.Windows.Forms.MenuStrip();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResponseRegisterLabel = new System.Windows.Forms.Label();
+            this.UsernameApplicationTextBox = new System.Windows.Forms.Label();
+            this.StatusesComboBox = new System.Windows.Forms.ComboBox();
             this.loginPanel.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.mainPanel.SuspendLayout();
@@ -201,6 +203,8 @@
             // 
             // mainPanel
             // 
+            this.mainPanel.Controls.Add(this.StatusesComboBox);
+            this.mainPanel.Controls.Add(this.UsernameApplicationTextBox);
             this.mainPanel.Controls.Add(this.SendMessageButton);
             this.mainPanel.Controls.Add(this.SendMessageTextBox);
             this.mainPanel.Controls.Add(this.ConversationTextBox);
@@ -277,9 +281,9 @@
             // friendsList
             // 
             this.friendsList.FormattingEnabled = true;
-            this.friendsList.Location = new System.Drawing.Point(12, 27);
+            this.friendsList.Location = new System.Drawing.Point(12, 79);
             this.friendsList.Name = "friendsList";
-            this.friendsList.Size = new System.Drawing.Size(167, 472);
+            this.friendsList.Size = new System.Drawing.Size(167, 420);
             this.friendsList.TabIndex = 3;
             // 
             // menuStrip1
@@ -427,14 +431,37 @@
             this.ResponseRegisterLabel.Size = new System.Drawing.Size(0, 13);
             this.ResponseRegisterLabel.TabIndex = 10;
             // 
+            // UsernameApplicationTextBox
+            // 
+            this.UsernameApplicationTextBox.AutoSize = true;
+            this.UsernameApplicationTextBox.Location = new System.Drawing.Point(12, 28);
+            this.UsernameApplicationTextBox.Name = "UsernameApplicationTextBox";
+            this.UsernameApplicationTextBox.Size = new System.Drawing.Size(0, 13);
+            this.UsernameApplicationTextBox.TabIndex = 11;
+            // 
+            // StatusesComboBox
+            // 
+            this.StatusesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.StatusesComboBox.FormattingEnabled = true;
+            this.StatusesComboBox.Items.AddRange(new object[] {
+            "Online",
+            "Offline",
+            "Busy",
+            "Away"});
+            this.StatusesComboBox.Location = new System.Drawing.Point(12, 45);
+            this.StatusesComboBox.Name = "StatusesComboBox";
+            this.StatusesComboBox.Size = new System.Drawing.Size(166, 21);
+            this.StatusesComboBox.TabIndex = 12;
+            this.StatusesComboBox.SelectedIndexChanged += new System.EventHandler(this.StatusesComboBox_SelectedIndexChanged);
+            // 
             // Application
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 662);
+            this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.registerPanel);
             this.Controls.Add(this.loginPanel);
-            this.Controls.Add(this.mainPanel);
             this.MainMenuStrip = this.menuStrip3;
             this.Name = "Application";
             this.Text = "Skype";
@@ -494,6 +521,8 @@
         private System.Windows.Forms.ToolStripMenuItem loginToolStripMenuItem;
         private System.Windows.Forms.Button RegisterButton;
         private System.Windows.Forms.Label ResponseRegisterLabel;
+        private System.Windows.Forms.Label UsernameApplicationTextBox;
+        private System.Windows.Forms.ComboBox StatusesComboBox;
     }
 }
 

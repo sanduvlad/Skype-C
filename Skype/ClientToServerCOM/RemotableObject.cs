@@ -15,14 +15,20 @@ namespace ClientToServerCOM
            return Wrapper.GetInstance().SignIn(userName, password,channelURL);
         }
 
-        public int SignOut(string userName, string channelURL)
+        public int SignOut(string userName)
         {
-            return Wrapper.GetInstance().SignOut(userName,channelURL);
+            return Wrapper.GetInstance().SignOut(userName);
         }
 
         public int Register(string userName, string password, string email, string nume)
         {
             return Wrapper.GetInstance().Register(userName, password,  email,  nume);
+        }
+
+        public void ChangeStatus(string userName, String status)
+        {
+            Wrapper.GetInstance().ChangeStatus(userName, status);
+
         }
 
         public void SearchFriends(string searchBy)

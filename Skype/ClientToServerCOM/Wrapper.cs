@@ -30,9 +30,15 @@ namespace ClientToServerCOM
             return comToServer.SignIn(userName, password, channelURL);
         }
 
-        public int SignOut(string userName,string channelURL)
+        public int SignOut(string userName)
         {
-           return comToServer.SignOut(userName, channelURL);
+           return comToServer.SignOut(userName);
+        }
+
+        public void ChangeStatus(string userName, String status)
+        {
+            comToServer.ChangeStatus(userName, status);
+
         }
 
         public int Register(string userName, string password, string email, string nume)
