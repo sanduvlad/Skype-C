@@ -23,7 +23,7 @@ namespace Interogare
             return count;
         }
 
-        public int userExists(string username)
+        public int UserExists(string username)
         {
             int count = 0;
             XElement xDoc = XElement.Load("DB.xml");
@@ -53,7 +53,7 @@ namespace Interogare
 
         public int LogOut(string username)
         {
-            if (userExists(username) == 1)
+            if (UserExists(username) == 1)
             {
                 //Console.WriteLine("Delogare reusita!");
                 ChangeStatus(username, "offline");
@@ -265,6 +265,47 @@ namespace Interogare
                 Details.Add(user);
             }
             return Details;
+        }
+
+        public int AddMessage(string sender, string receiver, string message)
+        {
+            int count = 0;
+            XElement xDoc = XElement.Load("DB.xml");
+
+            if (xDoc == null)
+                //Console.WriteLine("S-a produs o eroare la incarcarea xml-ului");
+                return 0;
+
+            IEnumerable<XElement> address =
+                from el in xDoc.Elements("messages").Elements("message")
+                where (string)el.Attribute("sender") == sender & (string)el.Attribute("receiver") == receiver
+                select el;
+            foreach (XElement el in address)
+                count++;
+            if(count == 0)
+            {
+                DateTime thisDay = DateTime.Today;
+                var myNewElement = new XElement("message",
+                    new XAttribute("sender", sender),
+                    new XAttribute("receiver", receiver),
+                    new XElement("text",
+                    new XAttribute("created", thisDay.ToString()), message)
+                    );
+
+                xDoc.Element("messages").Add(myNewElement);
+                xDoc.Save("DB.xml");
+            }
+            else
+            {
+                DateTime thisDay = DateTime.Today;
+                var myNewElement = new XElement("text",
+                    new XAttribute("created", thisDay.ToString()), message);
+
+                xDoc.Element("messages").Element("message").Attribute("sender");
+                xDoc.Save("DB.xml");
+                return 1;
+            }
+            return 1;
         }
     }
 }
