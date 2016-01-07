@@ -166,5 +166,21 @@ namespace Interogare
             xDoc.Save("DB.xml");
             return 1;
         }
+
+        public List<string> AllFriends(string username)
+        {
+            List<string> friends = new List<string>();
+
+            XElement xDoc = XElement.Load("DB.xml");
+            IEnumerable<XElement> address =
+                from el in xDoc.Elements("friends").Elements(username)
+                select el;
+
+            foreach (XElement el in address)
+            {
+                friends.Add((string)el.Element("friend"));
+            }
+            return friends;
+        }
     }
 }
