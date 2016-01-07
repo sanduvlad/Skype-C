@@ -301,9 +301,11 @@ namespace Interogare
                 var myNewElement = new XElement("text",
                     new XAttribute("created", thisDay.ToString()), message);
 
-                xDoc.Element("messages").Element("message").Attribute("sender");
-                xDoc.Save("DB.xml");
-                return 1;
+                foreach (XElement el in address)
+                {
+                    xDoc.Element("messages").Element("message").Add(myNewElement);
+                    xDoc.Save("DB.xml");
+                }
             }
             return 1;
         }
