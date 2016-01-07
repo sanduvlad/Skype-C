@@ -15,6 +15,7 @@ namespace Client
         ClientToServerHandle cliToSvr;
         ServerToClientHandle svrToCli;
         String username;
+        Dictionary<string, string>friendchoices = new Dictionary<string, string>();
 
         public Application()
         {
@@ -100,12 +101,18 @@ namespace Client
 
         private void SearchFriendsButton_Click(object sender, EventArgs e)
         {
+            listSearchedUsers();
+        }
+
+        private void listSearchedUsers()
+        {
             string query = searchFriendsText.Text;
-            if(query.Length<2)
+            if (query.Length < 2)
             {
                 addFriendsLabel.Text = "The searched term needs to be greater than 2 symbols";
                 addFriendsList.Items.Clear();
-            }else
+            }
+            else
             {
                 addFriendsLabel.Text = "";
                 addFriendsList.Items.Clear();
@@ -113,7 +120,7 @@ namespace Client
                 {
                     addFriendsList.Items.Add(u);
                 }
-                if(addFriendsList.Items.Count>0)
+                if (addFriendsList.Items.Count > 0)
                 {
                     addFriendsLabel.Text = "Click the username you want to add as friend";
                 }
@@ -122,23 +129,23 @@ namespace Client
 
         private void ListFriends()
         {
-            friendsList.Items.Clear();
-            var choices = new Dictionary<string, string>();
+            friendchoices.Clear();
             foreach (List<string> user in cliToSvr.GetFriends(username))
             {
-                choices[user.ElementAt(0)] = user.ElementAt(1) + " - " + user.ElementAt(2);
+                friendchoices[user.ElementAt(0)] = user.ElementAt(1) + " - " + user.ElementAt(2);
             }
-            friendsList.DataSource = new BindingSource(choices, null);
+            friendsList.DataSource = new BindingSource(friendchoices, null);
             friendsList.DisplayMember = "Value";
             friendsList.ValueMember = "Key";
-           
+            friendsList.Refresh();
         }
 
         private void addFriendsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string curItem =addFriendsList.SelectedItem.ToString();
-            cliToSvr.AddFriend(username, curItem);
-            SearchFriendsButton.PerformClick();
+            string friendSelected = String.Copy(addFriendsList.SelectedItem.ToString());
+            cliToSvr.AddFriend(username, friendSelected);
+            ListFriends();
+            listSearchedUsers();
         }
     }
 }

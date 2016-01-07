@@ -173,12 +173,12 @@ namespace Interogare
 
             XElement xDoc = XElement.Load("DB.xml");
             IEnumerable<XElement> address =
-                from el in xDoc.Elements("friends").Elements(username)
+                from el in xDoc.Elements("friends").Elements(username).Elements("friend")
                 select el;
 
             foreach (XElement el in address)
             {
-                friends.Add((string)el.Element("friend"));
+                friends.Add(el.Value);
             }
             return AllFriendsDetails(friends);
         }
@@ -194,7 +194,8 @@ namespace Interogare
 
             foreach (XElement el in address)
             {
-                friends.Add((string)el.Element("friend"));
+                foreach (XElement elm in el.Elements("friend"))
+                    friends.Add((string)el.Element("friend"));
             }
             return friends;
         }
