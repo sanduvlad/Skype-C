@@ -179,15 +179,8 @@ namespace Interogare
 
             foreach (XElement el in address)
             {
-<<<<<<< HEAD
-<<<<<<< HEAD
+
                 friends.Add((string)el);
-=======
-                friends.Add(el.Value);
->>>>>>> origin/master
-=======
-                friends.Add(el.Value);
->>>>>>> origin/master
             }
             return AllFriendsDetails(friends);
         }
@@ -304,7 +297,7 @@ namespace Interogare
                 count++;
             if(count == 0)
             {
-                DateTime thisDay = DateTime.Today;
+                DateTime thisDay = DateTime.Now;
                 var myNewElement = new XElement("message",
                     new XAttribute("sender", sender),
                     new XAttribute("receiver", receiver),

@@ -8,9 +8,9 @@ namespace Server
 {
     class ServerToClientHandle
     {
-        ServerToClientCOM.RemotableObject ClientRemoteObject;
+        static ServerToClientCOM.RemotableObject ClientRemoteObject;
 
-        public void SendMessage(string message, string fromUserName, string toUserNameChannelURL)
+        public static void SendMessage(string message, string fromUserName, string toUserNameChannelURL)
         {
             ClientRemoteObject =
                 (ServerToClientCOM.RemotableObject)Activator.GetObject(typeof(ServerToClientCOM.RemotableObject),

@@ -16,7 +16,7 @@ namespace Server
     public partial class Form1 : Form
     {
         ClientToServerHandle cliToSvr;
-        ServerToClientHandle svrToCli;
+        //ServerToClientHandle svrToCli;
 
         public Form1()
         {
@@ -34,14 +34,15 @@ namespace Server
                 );
 
             cliToSvr = new ClientToServerHandle();
-            svrToCli = new ServerToClientHandle();
+            //svrToCli = new ServerToClientHandle();
             ClientToServerCOM.Wrapper.GetInstance().Attach(cliToSvr);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            svrToCli.SendMessage("message", "user2", cliToSvr.getClientURL("user1"));
+            //svrToCli.SendMessage("message", "user2", cliToSvr.getClientURL("user1"));
             //svrToCli.SendMessage("message", "user2", cliToSvr.getClientURL("user2"));
+            
         }
     }
 }

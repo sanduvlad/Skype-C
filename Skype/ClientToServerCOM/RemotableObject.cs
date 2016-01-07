@@ -46,5 +46,10 @@ namespace ClientToServerCOM
             return Wrapper.GetInstance().SearchUsers(query, username);
         }
 
+        public void SendMessage(string fromUserName, string toUserName, string message)
+        {
+            Wrapper.GetInstance().SendMessage(fromUserName, toUserName, message);
+        }
+
     }
 }

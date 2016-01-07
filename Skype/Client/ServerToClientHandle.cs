@@ -4,14 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace Client
 {
     class ServerToClientHandle : ServerToClientCOM.I_In_COM
     {
+        private Application app;
+
+        public ServerToClientHandle(Application ap)
+        {
+            this.app = ap;
+        }
+
         public void MessageReceived(string message, string userName)
         {
-            MessageBox.Show(message + "/r/n" + userName);
+            //Invoke((MethodInvoker)(() => lblName.Text = "Meep"));
+            app.DisplayMessageOnScreen(userName + ": " + message);
         }
 
         public void SearchUserList(List<string> searchByList)

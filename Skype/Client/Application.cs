@@ -20,8 +20,9 @@ namespace Client
         public Application()
         {
             InitializeComponent();
+            this.AcceptButton = SendMessageButton;
             cliToSvr = new ClientToServerHandle();
-            svrToCli = new ServerToClientHandle();
+            svrToCli = new ServerToClientHandle(this);
             ServerToClientCOM.Wrapper.GetInstance().Attach(svrToCli);
         }
 
@@ -129,17 +130,15 @@ namespace Client
 
         private void ListFriends()
         {
-<<<<<<< HEAD
-<<<<<<< HEAD
             friendsList.DataSource = null;
             friendsList.Items.Clear();
             var choices = new Dictionary<string, string>();
-            string[] friends =  cliToSvr.GetFriends(username);
+            string[] friends = cliToSvr.GetFriends(username);
             foreach (string user in friends)
             {
                 try
                 {
-                    choices[user] = user.Split(' ')[0] + "-" + user.Split(' ')[1];
+                    friendsList.Items.Add(user.Split(' ')[0] + " - " + user.Split(' ')[1]);
                 }
                 catch (ArgumentOutOfRangeException)
                 {
@@ -149,25 +148,16 @@ namespace Client
             if (choices.Count == 0)
             {
                 choices.Add("", "");
-=======
-=======
->>>>>>> origin/master
-            friendchoices.Clear();
-            foreach (List<string> user in cliToSvr.GetFriends(username))
-            {
-                friendchoices[user.ElementAt(0)] = user.ElementAt(1) + " - " + user.ElementAt(2);
             }
-            if (friendchoices.Count > 0)
-            {
-                friendsList.DataSource = new BindingSource(friendchoices, null);
-                friendsList.DisplayMember = "Value";
-                friendsList.ValueMember = "Key";
-                friendsList.Refresh();
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
-            }
+
+            //friendsList.Items.Add("qweqeq");
+
+            //friendsList.DataSource = new BindingSource(friendchoices, null);
+            //friendsList.DisplayMember = "Value";
+            //friendsList.ValueMember = "Key";
+            //friendsList.Refresh();
+            //friendchoices.Clear();
+
         }
 
         private void addFriendsList_SelectedIndexChanged(object sender, EventArgs e)
@@ -176,14 +166,26 @@ namespace Client
             cliToSvr.AddFriend(username, friendSelected);
             ListFriends();
             listSearchedUsers();
-<<<<<<< HEAD
         }
 
         private void SendMessageButton_Click(object sender, EventArgs e)
         {
-            
-=======
->>>>>>> origin/master
+
+
+            if (friendsList.SelectedIndex < 0)
+            {
+                friendsList.SelectedIndex = 0;
+            }
+
+            cliToSvr.SendMessage(username, friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0], SendMessageTextBox.Text);
+                //admin1 - offline
+            ConversationTextBox.Text += "Me: " + SendMessageTextBox.Text + Environment.NewLine;
+            SendMessageTextBox.Text = string.Empty;
+        }
+
+        public void DisplayMessageOnScreen(string message)
+        {
+            Invoke((MethodInvoker)(() => ConversationTextBox.Text += message + Environment.NewLine));
         }
     }
 }

@@ -68,6 +68,9 @@ namespace ClientToServerCOM
             comToServer = ComServer;
         }
 
-
+        public void SendMessage(string fromUserName, string toUserName, string message)
+        {
+            comToServer.SendMessage(fromUserName, toUserName, message);
+        }
     }
 }

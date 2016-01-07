@@ -84,5 +84,14 @@ namespace Server
             Clients.Remove(userName);
             return 1;
         }
+
+
+        public void SendMessage(string fromUserName, string toUserName, string message)
+        {
+            //server
+            db.AddMessage(fromUserName, toUserName, message);
+
+            ServerToClientHandle.SendMessage(message, fromUserName, getClientURL(toUserName));
+        }
     }
 }

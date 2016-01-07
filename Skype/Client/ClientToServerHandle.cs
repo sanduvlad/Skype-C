@@ -47,7 +47,11 @@ namespace Client
         {
             return remoteServerOBJ.GetFriends(username);
         }
-        
+
+        public void SendMessage(string fromUserName, string toUserName, string message)
+        {
+            remoteServerOBJ.SendMessage(fromUserName, toUserName, message);
+        }
 
         public int SignIn(string userName, string password)
         {
