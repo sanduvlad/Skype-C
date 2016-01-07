@@ -10,14 +10,19 @@ namespace ClientToServerCOM
 {
     public class RemotableObject : MarshalByRefObject
     {
-        public bool SignIn(string userName, string password, string channelURL)
+        public int SignIn(string userName, string password, string channelURL)
         {
            return Wrapper.GetInstance().SignIn(userName, password,channelURL);
         }
 
-        public bool SignOut(string userName, string channelURL)
+        public int SignOut(string userName, string channelURL)
         {
             return Wrapper.GetInstance().SignOut(userName,channelURL);
+        }
+
+        public int Register(string userName, string password, string Email, string Nume, string channelURL)
+        {
+            return Wrapper.GetInstance().Register(string userName, string password, string Email, string Nume, string channelURL);
         }
 
         public void SearchFriends(string searchBy)

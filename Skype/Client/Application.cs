@@ -24,24 +24,6 @@ namespace Client
             ServerToClientCOM.Wrapper.GetInstance().Attach(svrToCli);
         }
 
-        private void bLogin_Click(object sender, EventArgs e)
-        {
-            String serverIp = cliToSvr.GetServerAddress();
-            cliToSvr.InitConnectionToServer(serverIp);
-            if(cliToSvr.SignIn(iUsername.Text, iPassword.Text))
-            {
-                username = iUsername.Text;
-                loginPanel.Visible = false;
-                mainPanel.Visible = true;
-            }
-            else
-            {
-                username = iUsername.Text;
-                loginPanel.Visible = true;
-                mainPanel.Visible = false;
-            }
-        }
-        
 
         private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -51,6 +33,45 @@ namespace Client
                 mainPanel.Visible = false;
             }
         }
+
+        private void RegisterMenuItem_Click(object sender, EventArgs e)
+        {
+            loginPanel.Visible = false;
+            registerPanel.Visible = true;
+        }
+
+        private void loginToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            loginPanel.Visible = true;
+            registerPanel.Visible = false;
+        }
+
+        private void bLogin_Click(object sender, EventArgs e)
+        {
+            String serverIp = cliToSvr.GetServerAddress();
+            cliToSvr.InitConnectionToServer(serverIp);
+            if(cliToSvr.SignIn(UsernameLoginTextBox.Text, PasswordLoginTextBox.Text))
+            {
+                username = UsernameLoginTextBox.Text;
+                loginPanel.Visible = false;
+                mainPanel.Visible = true;
+            }
+            else
+            {
+                username = UsernameLoginTextBox.Text;
+                loginPanel.Visible = true;
+                mainPanel.Visible = false;
+                loginResponseLabel.Text = "Login Failed";
+            }
+        }
         
+
+       
+
+        private void RegisterButton_Click(object sender, EventArgs e)
+        {
+            String serverIp = cliToSvr.GetServerAddress();
+            cliToSvr.InitConnectionToServer(serverIp);
+        }
     }
 }

@@ -10,7 +10,8 @@ namespace Server
     class ClientToServerHandle : ClientToServerCOM.I_Out_COM
     {
         private Dictionary<string, string> Clients = new Dictionary<string, string>();
-                        // userName, channelURL //
+        // userName, channelURL //
+        //private XmlDatabase db;
 
         public string getClientURL(string userName)
         {
@@ -35,6 +36,7 @@ namespace Server
         public bool SignIn(string userName, string password, string channelURL)
         {
             Clients.Add(userName, channelURL);
+            
             return true;
         }
 

@@ -53,7 +53,7 @@ namespace Client
         }
 
 
-        public bool SignIn(string userName, string password)
+        public int SignIn(string userName, string password)
         {
             //TCP - Initialize client object proxy
             //************
@@ -77,15 +77,20 @@ namespace Client
 
             string clientChannelURL = "tcp://" + IP_address + ":8081" + "/" + userName;
 
-            if (remoteServerOBJ.SignIn(userName, password, clientChannelURL))
-                return true; 
-            return false;
+            return remoteServerOBJ.SignIn(userName, password, clientChannelURL);
         }
 
-        public bool SignOut(string userName)
+        public int SignOut(string userName)
         {
             string clientChannelURL = "tcp://" + ipAddresss + ":8081" + "/" + userName;
             return remoteServerOBJ.SignOut(userName, clientChannelURL);
+
+        }
+
+        public int Register(string userName, string password, string email, string nume, string channelURL)
+        {
+            string clientChannelURL = "tcp://" + ipAddresss + ":8081" + "/" + userName;
+            return remoteServerOBJ.Register(userName, password, email,nume, clientChannelURL);
 
         }
     }
