@@ -20,9 +20,9 @@ namespace ClientToServerCOM
             return Wrapper.GetInstance().SignOut(userName,channelURL);
         }
 
-        public int Register(string userName, string password, string Email, string Nume, string channelURL)
+        public int Register(string userName, string password, string email, string nume)
         {
-            return Wrapper.GetInstance().Register(string userName, string password, string Email, string Nume, string channelURL);
+            return Wrapper.GetInstance().Register(userName, password,  email,  nume);
         }
 
         public void SearchFriends(string searchBy)

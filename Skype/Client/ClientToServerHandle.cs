@@ -87,10 +87,9 @@ namespace Client
 
         }
 
-        public int Register(string userName, string password, string email, string nume, string channelURL)
+        public int Register(string userName, string password, string email, string nume)
         {
-            string clientChannelURL = "tcp://" + ipAddresss + ":8081" + "/" + userName;
-            return remoteServerOBJ.Register(userName, password, email,nume, clientChannelURL);
+            return remoteServerOBJ.Register(userName, password, email,nume);
 
         }
     }

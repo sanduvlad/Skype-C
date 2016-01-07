@@ -18,7 +18,7 @@ namespace ClientToServerCOM
     {
         int SignIn(string userName, string password, string channelURL);
         int SignOut(string userName, string channelURL);
-        int Register(string userName, string password, string Email,string Nume, string channelURL);
+        int Register(string userName, string password, string email,string nume);
         void SearchFriends(string searchBy);
         void AddFriend(string userName);
         void SetAvailableState(AvailableState state);

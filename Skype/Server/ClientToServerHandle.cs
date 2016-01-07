@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Interogare;
 namespace Server
 {
     class ClientToServerHandle : ClientToServerCOM.I_Out_COM
     {
         private Dictionary<string, string> Clients = new Dictionary<string, string>();
         // userName, channelURL //
-        //private XmlDatabase db;
+        private XmlDataBase db; 
 
         public string getClientURL(string userName)
         {
@@ -33,16 +34,32 @@ namespace Server
             throw new NotImplementedException();
         }
 
-        public bool SignIn(string userName, string password, string channelURL)
+        public int Register(string userName, string password, string email, string nume)
         {
-            Clients.Add(userName, channelURL);
-            
-            return true;
+            return 1;
         }
 
-        public bool SignOut(string userName, string channelUR)
+        public int SignIn(string userName, string password, string channelURL)
         {
-            return true;
+            if (Clients.ContainsValue(userName))
+                return 2;
+            else
+            {
+                if (db.LogIn(userName, password) == 1)
+                {
+                    Clients.Add(userName, channelURL);
+                    return 1;
+                }
+                else
+                    return 0;
+               
+            }
+            
+        }
+
+        public int SignOut(string userName, string channelUR)
+        {
+            return 1;
         }
     }
 }

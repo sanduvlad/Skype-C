@@ -35,9 +35,9 @@ namespace ClientToServerCOM
            return comToServer.SignOut(userName, channelURL);
         }
 
-        public int Register(string userName, string password, string email, string nume, string channelURL)
+        public int Register(string userName, string password, string email, string nume)
         {
-            return comToServer.Register(string userName, string password, string email, string nume, string channelURL);
+            return comToServer.Register(userName, password,  email,  nume);
         }
 
         public void SearchFriends(string searchBy)

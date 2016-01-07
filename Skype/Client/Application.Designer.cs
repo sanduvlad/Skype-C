@@ -55,6 +55,7 @@
             this.applicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registerPanel = new System.Windows.Forms.Panel();
+            this.RegisterButton = new System.Windows.Forms.Button();
             this.PasswordRegisterLabel = new System.Windows.Forms.Label();
             this.PasswordRegisterTextBox = new System.Windows.Forms.TextBox();
             this.NameRegisterLabel = new System.Windows.Forms.Label();
@@ -65,7 +66,6 @@
             this.RegisterUsernameTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip3 = new System.Windows.Forms.MenuStrip();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.RegisterButton = new System.Windows.Forms.Button();
             this.loginPanel.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.mainPanel.SuspendLayout();
@@ -325,6 +325,16 @@
             this.registerPanel.TabIndex = 36;
             this.registerPanel.Visible = false;
             // 
+            // RegisterButton
+            // 
+            this.RegisterButton.Location = new System.Drawing.Point(205, 143);
+            this.RegisterButton.Name = "RegisterButton";
+            this.RegisterButton.Size = new System.Drawing.Size(75, 23);
+            this.RegisterButton.TabIndex = 9;
+            this.RegisterButton.Text = "Register";
+            this.RegisterButton.UseVisualStyleBackColor = true;
+            this.RegisterButton.Click += new System.EventHandler(this.RegisterButton_Click);
+            // 
             // PasswordRegisterLabel
             // 
             this.PasswordRegisterLabel.AutoSize = true;
@@ -407,24 +417,14 @@
             this.loginToolStripMenuItem.Text = "Login";
             this.loginToolStripMenuItem.Click += new System.EventHandler(this.loginToolStripMenuItem_Click);
             // 
-            // RegisterButton
-            // 
-            this.RegisterButton.Location = new System.Drawing.Point(205, 143);
-            this.RegisterButton.Name = "RegisterButton";
-            this.RegisterButton.Size = new System.Drawing.Size(75, 23);
-            this.RegisterButton.TabIndex = 9;
-            this.RegisterButton.Text = "Register";
-            this.RegisterButton.UseVisualStyleBackColor = true;
-            this.RegisterButton.Click += new System.EventHandler(this.RegisterButton_Click);
-            // 
             // Application
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 662);
+            this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.registerPanel);
             this.Controls.Add(this.loginPanel);
-            this.Controls.Add(this.mainPanel);
             this.MainMenuStrip = this.menuStrip3;
             this.Name = "Application";
             this.Text = "Skype";

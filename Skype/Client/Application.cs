@@ -27,7 +27,7 @@ namespace Client
 
         private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (cliToSvr.SignOut(username))
+            if (cliToSvr.SignOut(username)==1)
             {
                 loginPanel.Visible = true;
                 mainPanel.Visible = false;
@@ -50,7 +50,7 @@ namespace Client
         {
             String serverIp = cliToSvr.GetServerAddress();
             cliToSvr.InitConnectionToServer(serverIp);
-            if(cliToSvr.SignIn(UsernameLoginTextBox.Text, PasswordLoginTextBox.Text))
+            if(cliToSvr.SignIn(UsernameLoginTextBox.Text, PasswordLoginTextBox.Text)==1)
             {
                 username = UsernameLoginTextBox.Text;
                 loginPanel.Visible = false;
