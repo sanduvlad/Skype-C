@@ -134,10 +134,13 @@ namespace Client
             {
                 friendchoices[user.ElementAt(0)] = user.ElementAt(1) + " - " + user.ElementAt(2);
             }
-            friendsList.DataSource = new BindingSource(friendchoices, null);
-            friendsList.DisplayMember = "Value";
-            friendsList.ValueMember = "Key";
-            friendsList.Refresh();
+            if (friendchoices.Count > 0)
+            {
+                friendsList.DataSource = new BindingSource(friendchoices, null);
+                friendsList.DisplayMember = "Value";
+                friendsList.ValueMember = "Key";
+                friendsList.Refresh();
+            }
         }
 
         private void addFriendsList_SelectedIndexChanged(object sender, EventArgs e)
