@@ -12,7 +12,7 @@ namespace Server
     {
         private Dictionary<string, string> Clients = new Dictionary<string, string>();
         // userName, channelURL //
-        private XmlDataBase db; 
+        private XmlDataBase db = new XmlDataBase();
 
         public string getClientURL(string userName)
         {

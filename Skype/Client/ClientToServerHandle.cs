@@ -29,9 +29,10 @@ namespace Client
             try
             {
                channel  = new TcpChannel(8081);
+               ChannelServices.RegisterChannel(channel, false);
             }
             catch { }
-            ChannelServices.RegisterChannel(channel, false);
+            
 
             remoteServerOBJ = (ClientToServerCOM.RemotableObject)Activator.GetObject(typeof(ClientToServerCOM.RemotableObject), "tcp://" + serverIP + ":8080" + "/ClientToServer");
             //************

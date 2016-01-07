@@ -16,7 +16,7 @@ namespace Interogare
 
             XElement root = XElement.Load("DB.xml");
             IEnumerable<XElement> address =
-                from el in root.Elements("user")
+                from el in root.Elements("users").Elements("user")
                 where (string)el.Attribute("username") == username & (string)el.Element("parola") == parola
                 select el;
             foreach (XElement el in address)
