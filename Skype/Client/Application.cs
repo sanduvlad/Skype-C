@@ -130,6 +130,7 @@ namespace Client
         private void ListFriends()
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             friendsList.DataSource = null;
             friendsList.Items.Clear();
             var choices = new Dictionary<string, string>();
@@ -149,6 +150,8 @@ namespace Client
             {
                 choices.Add("", "");
 =======
+=======
+>>>>>>> origin/master
             friendchoices.Clear();
             foreach (List<string> user in cliToSvr.GetFriends(username))
             {
@@ -160,6 +163,9 @@ namespace Client
                 friendsList.DisplayMember = "Value";
                 friendsList.ValueMember = "Key";
                 friendsList.Refresh();
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
             }
         }
@@ -170,11 +176,14 @@ namespace Client
             cliToSvr.AddFriend(username, friendSelected);
             ListFriends();
             listSearchedUsers();
+<<<<<<< HEAD
         }
 
         private void SendMessageButton_Click(object sender, EventArgs e)
         {
             
+=======
+>>>>>>> origin/master
         }
     }
 }

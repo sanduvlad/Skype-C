@@ -180,7 +180,11 @@ namespace Interogare
             foreach (XElement el in address)
             {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 friends.Add((string)el);
+=======
+                friends.Add(el.Value);
+>>>>>>> origin/master
 =======
                 friends.Add(el.Value);
 >>>>>>> origin/master
