@@ -302,11 +302,41 @@ namespace Interogare
                 var myNewElement = new XElement("text",
                     new XAttribute("created", thisDay.ToString()), message);
 
-                xDoc.Element("messages").Element("message").Attribute("sender");
-                xDoc.Save("DB.xml");
-                return 1;
+                foreach (XElement el in address)
+                {
+                    xDoc.Element("messages").Element("message").Add(myNewElement);
+                    xDoc.Save("DB.xml");
+                }
             }
             return 1;
+        }
+
+        public List<List<string>> AllMessages(string user1, string user2)
+        {
+            List<List<string>> Messages = new List<List<String>>();
+            List<string> Message = new List<String>();
+
+            XElement xDoc = XElement.Load("DB.xml");
+
+            IEnumerable<XElement> address =
+                from el in xDoc.Elements("messages").Elements("message")
+                where ((string)el.Attribute("sender") == user1 & (string)el.Attribute("receiver") == user2) ||
+                        ((string)el.Attribute("sender") == user2 & (string)el.Attribute("receiver") == user1) 
+                select el;
+
+            foreach (XElement el in address)
+            {
+                Message.Clear();
+                Message.Add((string)el.Attribute("created"));
+                Message.Add((string)el.Element("text").Attribute("sender"));
+                Message.Add((string)el.Element("text").Attribute("receiver"));
+                Message.Add((string)el.Element("text"));
+                Messages.Add(Message);
+            }
+
+            //sort Messages dupa data adica created
+
+            return Messages;
         }
     }
 }
