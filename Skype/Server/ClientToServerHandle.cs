@@ -36,7 +36,13 @@ namespace Server
 
         public int Register(string userName, string password, string email, string nume)
         {
-            return 1;
+            if(db.Register(userName,password,password,nume,email)==1)
+            {
+                return 1;
+            }else
+            {
+                return 0;
+            }
         }
 
         public int SignIn(string userName, string password, string channelURL)

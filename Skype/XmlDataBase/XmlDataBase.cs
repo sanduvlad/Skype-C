@@ -23,12 +23,40 @@ namespace Interogare
             return count;
         }
 
+        public int userExists(string username)
+        {
+            int count = 0;
+            XElement xDoc = XElement.Load("DB.xml");
+            IEnumerable<XElement> address =
+                from el in xDoc.Elements("users").Elements("user")
+                where (string)el.Attribute("username") == username 
+                select el;
+            foreach (XElement el in address)
+                count++;
+            return count;
+        }
+
         public int LogIn(string username, string parola)
         {
             if (VerifyUser(username, parola) == 1)
             {
                 //Console.WriteLine("Autentificare reusita!");
                 ChangeStatus(username, "online");
+                return 1;
+            }
+            else
+            {
+                //Console.WriteLine("Username-ul sau parola sunt gresite");
+                return 0;
+            }
+        }
+
+        public int LogOut(string username)
+        {
+            if (userExists(username) == 1)
+            {
+                //Console.WriteLine("Delogare reusita!");
+                ChangeStatus(username, "offline");
                 return 1;
             }
             else
@@ -91,7 +119,7 @@ namespace Interogare
             {
                 var myNewElement = new XElement("user",
                    new XAttribute("username", username),
-                   new XAttribute("stare", "offline"),
+                   new XAttribute("status", "offline"),
                    new XElement("parola", parola),
                    new XElement("nume", nume),
                    new XElement("email", email)

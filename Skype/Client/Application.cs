@@ -55,6 +55,7 @@ namespace Client
                 username = UsernameLoginTextBox.Text;
                 loginPanel.Visible = false;
                 mainPanel.Visible = true;
+                loginResponseLabel.Text = "";
             }
             else
             {
@@ -72,6 +73,14 @@ namespace Client
         {
             String serverIp = cliToSvr.GetServerAddress();
             cliToSvr.InitConnectionToServer(serverIp);
+            if(cliToSvr.Register(UsernameRegisterTextBox.Text, PasswordRegisterTextBox.Text, EmailRegisterTextBox.Text, NameRegisterTextBox.Text)==1)
+            {
+                ResponseRegisterLabel.Text = "Register Succeded";
+            }else
+            {
+                ResponseRegisterLabel.Text = "Register Failed";
+            }
+                
         }
     }
 }

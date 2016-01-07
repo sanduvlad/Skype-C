@@ -63,9 +63,10 @@
             this.EmailRegisterLabel = new System.Windows.Forms.Label();
             this.EmailRegisterTextBox = new System.Windows.Forms.TextBox();
             this.UsernameRegisterLabel = new System.Windows.Forms.Label();
-            this.RegisterUsernameTextBox = new System.Windows.Forms.TextBox();
+            this.UsernameRegisterTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip3 = new System.Windows.Forms.MenuStrip();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ResponseRegisterLabel = new System.Windows.Forms.Label();
             this.loginPanel.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.mainPanel.SuspendLayout();
@@ -158,7 +159,7 @@
             // loginResponseLabel
             // 
             this.loginResponseLabel.AutoSize = true;
-            this.loginResponseLabel.Location = new System.Drawing.Point(104, 247);
+            this.loginResponseLabel.Location = new System.Drawing.Point(102, 124);
             this.loginResponseLabel.Name = "loginResponseLabel";
             this.loginResponseLabel.Size = new System.Drawing.Size(0, 13);
             this.loginResponseLabel.TabIndex = 29;
@@ -308,6 +309,7 @@
             // 
             // registerPanel
             // 
+            this.registerPanel.Controls.Add(this.ResponseRegisterLabel);
             this.registerPanel.Controls.Add(this.RegisterButton);
             this.registerPanel.Controls.Add(this.PasswordRegisterLabel);
             this.registerPanel.Controls.Add(this.PasswordRegisterTextBox);
@@ -316,7 +318,7 @@
             this.registerPanel.Controls.Add(this.EmailRegisterLabel);
             this.registerPanel.Controls.Add(this.EmailRegisterTextBox);
             this.registerPanel.Controls.Add(this.UsernameRegisterLabel);
-            this.registerPanel.Controls.Add(this.RegisterUsernameTextBox);
+            this.registerPanel.Controls.Add(this.UsernameRegisterTextBox);
             this.registerPanel.Controls.Add(this.menuStrip3);
             this.registerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.registerPanel.Location = new System.Drawing.Point(0, 0);
@@ -330,7 +332,7 @@
             this.RegisterButton.Location = new System.Drawing.Point(205, 143);
             this.RegisterButton.Name = "RegisterButton";
             this.RegisterButton.Size = new System.Drawing.Size(75, 23);
-            this.RegisterButton.TabIndex = 9;
+            this.RegisterButton.TabIndex = 5;
             this.RegisterButton.Text = "Register";
             this.RegisterButton.UseVisualStyleBackColor = true;
             this.RegisterButton.Click += new System.EventHandler(this.RegisterButton_Click);
@@ -350,7 +352,7 @@
             this.PasswordRegisterTextBox.Name = "PasswordRegisterTextBox";
             this.PasswordRegisterTextBox.PasswordChar = '*';
             this.PasswordRegisterTextBox.Size = new System.Drawing.Size(172, 20);
-            this.PasswordRegisterTextBox.TabIndex = 7;
+            this.PasswordRegisterTextBox.TabIndex = 4;
             // 
             // NameRegisterLabel
             // 
@@ -366,7 +368,7 @@
             this.NameRegisterTextBox.Location = new System.Drawing.Point(107, 37);
             this.NameRegisterTextBox.Name = "NameRegisterTextBox";
             this.NameRegisterTextBox.Size = new System.Drawing.Size(173, 20);
-            this.NameRegisterTextBox.TabIndex = 5;
+            this.NameRegisterTextBox.TabIndex = 1;
             // 
             // EmailRegisterLabel
             // 
@@ -393,12 +395,12 @@
             this.UsernameRegisterLabel.TabIndex = 2;
             this.UsernameRegisterLabel.Text = "Username";
             // 
-            // RegisterUsernameTextBox
+            // UsernameRegisterTextBox
             // 
-            this.RegisterUsernameTextBox.Location = new System.Drawing.Point(107, 65);
-            this.RegisterUsernameTextBox.Name = "RegisterUsernameTextBox";
-            this.RegisterUsernameTextBox.Size = new System.Drawing.Size(173, 20);
-            this.RegisterUsernameTextBox.TabIndex = 1;
+            this.UsernameRegisterTextBox.Location = new System.Drawing.Point(107, 65);
+            this.UsernameRegisterTextBox.Name = "UsernameRegisterTextBox";
+            this.UsernameRegisterTextBox.Size = new System.Drawing.Size(173, 20);
+            this.UsernameRegisterTextBox.TabIndex = 2;
             // 
             // menuStrip3
             // 
@@ -417,14 +419,22 @@
             this.loginToolStripMenuItem.Text = "Login";
             this.loginToolStripMenuItem.Click += new System.EventHandler(this.loginToolStripMenuItem_Click);
             // 
+            // ResponseRegisterLabel
+            // 
+            this.ResponseRegisterLabel.AutoSize = true;
+            this.ResponseRegisterLabel.Location = new System.Drawing.Point(108, 173);
+            this.ResponseRegisterLabel.Name = "ResponseRegisterLabel";
+            this.ResponseRegisterLabel.Size = new System.Drawing.Size(0, 13);
+            this.ResponseRegisterLabel.TabIndex = 10;
+            // 
             // Application
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 662);
-            this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.registerPanel);
             this.Controls.Add(this.loginPanel);
+            this.Controls.Add(this.mainPanel);
             this.MainMenuStrip = this.menuStrip3;
             this.Name = "Application";
             this.Text = "Skype";
@@ -479,10 +489,11 @@
         private System.Windows.Forms.Label EmailRegisterLabel;
         private System.Windows.Forms.TextBox EmailRegisterTextBox;
         private System.Windows.Forms.Label UsernameRegisterLabel;
-        private System.Windows.Forms.TextBox RegisterUsernameTextBox;
+        private System.Windows.Forms.TextBox UsernameRegisterTextBox;
         private System.Windows.Forms.MenuStrip menuStrip3;
         private System.Windows.Forms.ToolStripMenuItem loginToolStripMenuItem;
         private System.Windows.Forms.Button RegisterButton;
+        private System.Windows.Forms.Label ResponseRegisterLabel;
     }
 }
 
