@@ -258,8 +258,8 @@ namespace Interogare
 
                 foreach (XElement elm in address)
                 {
-                    user.Add((string)elm.Element("username"));
-                    user.Add((string)elm.Element("status"));
+                    user.Add((string)elm.Attribute("username"));
+                    user.Add((string)elm.Attribute("status"));
                 }
 
                 Details.Add(user);
