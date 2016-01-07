@@ -26,7 +26,7 @@ namespace Server
 
       
 
-        public List<List<string>> GetFriends(string username)
+        public string[] GetFriends(string username)
         {
             return db.AllFriends(username);
         }

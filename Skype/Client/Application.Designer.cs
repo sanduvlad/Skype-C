@@ -43,6 +43,8 @@
             this.PasswordLoginButton = new System.Windows.Forms.Label();
             this.mesajLogare = new System.Windows.Forms.Label();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.StatusesComboBox = new System.Windows.Forms.ComboBox();
+            this.UsernameApplicationTextBox = new System.Windows.Forms.Label();
             this.SendMessageButton = new System.Windows.Forms.Button();
             this.SendMessageTextBox = new System.Windows.Forms.TextBox();
             this.ConversationTextBox = new System.Windows.Forms.TextBox();
@@ -55,6 +57,7 @@
             this.applicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registerPanel = new System.Windows.Forms.Panel();
+            this.ResponseRegisterLabel = new System.Windows.Forms.Label();
             this.RegisterButton = new System.Windows.Forms.Button();
             this.PasswordRegisterLabel = new System.Windows.Forms.Label();
             this.PasswordRegisterTextBox = new System.Windows.Forms.TextBox();
@@ -66,9 +69,6 @@
             this.UsernameRegisterTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip3 = new System.Windows.Forms.MenuStrip();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ResponseRegisterLabel = new System.Windows.Forms.Label();
-            this.UsernameApplicationTextBox = new System.Windows.Forms.Label();
-            this.StatusesComboBox = new System.Windows.Forms.ComboBox();
             this.loginPanel.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.mainPanel.SuspendLayout();
@@ -221,6 +221,29 @@
             this.mainPanel.TabIndex = 14;
             this.mainPanel.Visible = false;
             // 
+            // StatusesComboBox
+            // 
+            this.StatusesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.StatusesComboBox.FormattingEnabled = true;
+            this.StatusesComboBox.Items.AddRange(new object[] {
+            "Online",
+            "Offline",
+            "Busy",
+            "Away"});
+            this.StatusesComboBox.Location = new System.Drawing.Point(12, 45);
+            this.StatusesComboBox.Name = "StatusesComboBox";
+            this.StatusesComboBox.Size = new System.Drawing.Size(166, 21);
+            this.StatusesComboBox.TabIndex = 12;
+            this.StatusesComboBox.SelectedIndexChanged += new System.EventHandler(this.StatusesComboBox_SelectedIndexChanged);
+            // 
+            // UsernameApplicationTextBox
+            // 
+            this.UsernameApplicationTextBox.AutoSize = true;
+            this.UsernameApplicationTextBox.Location = new System.Drawing.Point(12, 28);
+            this.UsernameApplicationTextBox.Name = "UsernameApplicationTextBox";
+            this.UsernameApplicationTextBox.Size = new System.Drawing.Size(0, 13);
+            this.UsernameApplicationTextBox.TabIndex = 11;
+            // 
             // SendMessageButton
             // 
             this.SendMessageButton.Location = new System.Drawing.Point(597, 610);
@@ -229,6 +252,7 @@
             this.SendMessageButton.TabIndex = 10;
             this.SendMessageButton.Text = "Send";
             this.SendMessageButton.UseVisualStyleBackColor = true;
+            this.SendMessageButton.Click += new System.EventHandler(this.SendMessageButton_Click);
             // 
             // SendMessageTextBox
             // 
@@ -334,6 +358,14 @@
             this.registerPanel.TabIndex = 36;
             this.registerPanel.Visible = false;
             // 
+            // ResponseRegisterLabel
+            // 
+            this.ResponseRegisterLabel.AutoSize = true;
+            this.ResponseRegisterLabel.Location = new System.Drawing.Point(108, 173);
+            this.ResponseRegisterLabel.Name = "ResponseRegisterLabel";
+            this.ResponseRegisterLabel.Size = new System.Drawing.Size(0, 13);
+            this.ResponseRegisterLabel.TabIndex = 10;
+            // 
             // RegisterButton
             // 
             this.RegisterButton.Location = new System.Drawing.Point(205, 143);
@@ -425,37 +457,6 @@
             this.loginToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.loginToolStripMenuItem.Text = "Login";
             this.loginToolStripMenuItem.Click += new System.EventHandler(this.loginToolStripMenuItem_Click);
-            // 
-            // ResponseRegisterLabel
-            // 
-            this.ResponseRegisterLabel.AutoSize = true;
-            this.ResponseRegisterLabel.Location = new System.Drawing.Point(108, 173);
-            this.ResponseRegisterLabel.Name = "ResponseRegisterLabel";
-            this.ResponseRegisterLabel.Size = new System.Drawing.Size(0, 13);
-            this.ResponseRegisterLabel.TabIndex = 10;
-            // 
-            // UsernameApplicationTextBox
-            // 
-            this.UsernameApplicationTextBox.AutoSize = true;
-            this.UsernameApplicationTextBox.Location = new System.Drawing.Point(12, 28);
-            this.UsernameApplicationTextBox.Name = "UsernameApplicationTextBox";
-            this.UsernameApplicationTextBox.Size = new System.Drawing.Size(0, 13);
-            this.UsernameApplicationTextBox.TabIndex = 11;
-            // 
-            // StatusesComboBox
-            // 
-            this.StatusesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.StatusesComboBox.FormattingEnabled = true;
-            this.StatusesComboBox.Items.AddRange(new object[] {
-            "Online",
-            "Offline",
-            "Busy",
-            "Away"});
-            this.StatusesComboBox.Location = new System.Drawing.Point(12, 45);
-            this.StatusesComboBox.Name = "StatusesComboBox";
-            this.StatusesComboBox.Size = new System.Drawing.Size(166, 21);
-            this.StatusesComboBox.TabIndex = 12;
-            this.StatusesComboBox.SelectedIndexChanged += new System.EventHandler(this.StatusesComboBox_SelectedIndexChanged);
             // 
             // Application
             // 

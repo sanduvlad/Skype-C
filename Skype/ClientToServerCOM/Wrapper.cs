@@ -46,7 +46,7 @@ namespace ClientToServerCOM
             return comToServer.Register(userName, password,  email,  nume);
         }
 
-        public List<List<string>> GetFriends(string username)
+        public string[] GetFriends(string username)
         {
             return comToServer.GetFriends(username);
         }

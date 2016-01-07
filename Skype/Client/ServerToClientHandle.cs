@@ -23,5 +23,11 @@ namespace Client
         {
             throw new NotImplementedException();
         }
+
+
+        public void SetUserStatus(string userName, ServerToClientCOM.AvailableState state)
+        {
+            
+        }
     }
 }

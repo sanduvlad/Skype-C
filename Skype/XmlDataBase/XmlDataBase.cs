@@ -167,18 +167,19 @@ namespace Interogare
             return 1;
         }
 
-        public List<List<string>> AllFriends(string username)
+        public string[] AllFriends(string username)
         {
             List<string> friends = new List<string>();
 
             XElement xDoc = XElement.Load("DB.xml");
+
             IEnumerable<XElement> address =
-                from el in xDoc.Elements("friends").Elements(username)
+                from el in xDoc.Elements("friends").Elements(username).Elements("friend")
                 select el;
 
             foreach (XElement el in address)
             {
-                friends.Add((string)el.Element("friend"));
+                friends.Add((string)el);
             }
             return AllFriendsDetails(friends);
         }
@@ -240,9 +241,17 @@ namespace Interogare
             return Users;
         }
 
-        public List<List<string>> AllFriendsDetails(List<string> friends)
+        public string[] AllFriendsDetails(List<string> friends)
         {
             List<List<string>> Details = new List<List<String>>();
+            string[] detalii = new string[friends.Count];
+            for (int j = 0; j < friends.Count; j++)
+            {
+                detalii[j] = string.Empty;
+            }
+            //username status
+            //username2 status2
+            int i = 0;
             List<string> user = new List<String>();
             XElement xDoc = XElement.Load("DB.xml");
 
@@ -258,13 +267,15 @@ namespace Interogare
 
                 foreach (XElement elm in address)
                 {
-                    user.Add((string)elm.Attribute("username"));
+                    //user.Add((string)elm.Attribute("username"));
                     user.Add((string)elm.Attribute("status"));
                 }
 
                 Details.Add(user);
+                detalii[i] = (user.ElementAt(0) + " " + user.ElementAt(1)).ToString();
+                i++;
             }
-            return Details;
+            return detalii;
         }
 
         public int AddMessage(string sender, string receiver, string message)

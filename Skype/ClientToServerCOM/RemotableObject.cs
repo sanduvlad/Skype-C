@@ -36,7 +36,7 @@ namespace ClientToServerCOM
             Wrapper.GetInstance().AddFriend(userName,friend);
         }
 
-        public List<List<string>> GetFriends(string username)
+        public string[] GetFriends(string username)
         {
             return Wrapper.GetInstance().GetFriends(username);
         }

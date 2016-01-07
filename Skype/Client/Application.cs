@@ -49,7 +49,7 @@ namespace Client
         private void bLogin_Click(object sender, EventArgs e)
         {
             String serverIp = cliToSvr.GetServerAddress();
-            cliToSvr.InitConnectionToServer(serverIp);
+            cliToSvr.InitConnectionToServer("192.168.0.101");
             if(cliToSvr.SignIn(UsernameLoginTextBox.Text, PasswordLoginTextBox.Text)==1)
             {
                 username = UsernameLoginTextBox.Text;
@@ -122,11 +122,24 @@ namespace Client
 
         private void ListFriends()
         {
+            friendsList.DataSource = null;
             friendsList.Items.Clear();
             var choices = new Dictionary<string, string>();
-            foreach (List<string> user in cliToSvr.GetFriends(username))
+            string[] friends =  cliToSvr.GetFriends(username);
+            foreach (string user in friends)
             {
-                choices[user.ElementAt(0)] = user.ElementAt(1) + " - " + user.ElementAt(2);
+                try
+                {
+                    choices[user] = user.Split(' ')[0] + "-" + user.Split(' ')[1];
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    break;
+                }
+            }
+            if (choices.Count == 0)
+            {
+                choices.Add("", "");
             }
             friendsList.DataSource = new BindingSource(choices, null);
             friendsList.DisplayMember = "Value";
@@ -139,6 +152,11 @@ namespace Client
             string curItem =addFriendsList.SelectedItem.ToString();
             cliToSvr.AddFriend(username, curItem);
             SearchFriendsButton.PerformClick();
+        }
+
+        private void SendMessageButton_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
