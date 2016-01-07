@@ -167,7 +167,7 @@ namespace Interogare
             return 1;
         }
 
-        public List<string> AllFriends(string username)
+        public string[][] AllFriends(string username)
         {
             List<string> friends = new List<string>();
 
@@ -180,7 +180,33 @@ namespace Interogare
             {
                 friends.Add((string)el.Element("friend"));
             }
-            return friends;
+            return AllFriendsDetails(friends);
+        }
+
+        public string[][] AllFriendsDetails(List<string> friends)
+        {
+            string[][] Details = null;
+            int i = 0, j = 0;
+            XElement xDoc = XElement.Load("DB.xml");
+
+            foreach (string el in friends)
+            {
+                Details[i][j] = el;
+                
+                IEnumerable<XElement> address =
+                    from elm in xDoc.Elements("users").Elements("user")
+                    where (string)elm.Attribute("username") == el
+                    select elm;
+
+                foreach (XElement elm in address)
+                {
+                    Details[i][j] = (string)elm.Element("username");
+                    Details[i][j+1] = (string)elm.Element("status");
+                }
+                i++;
+                j = 0;
+            }
+            return Details;
         }
     }
 }
