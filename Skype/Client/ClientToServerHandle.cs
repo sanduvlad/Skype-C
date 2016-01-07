@@ -98,5 +98,10 @@ namespace Client
             return remoteServerOBJ.Register(userName, password, email,nume);
 
         }
+
+        public List<string> SearchUsers(string query,string username)
+        {
+            return remoteServerOBJ.SearchUsers(query, username);
+        }
     }
 }

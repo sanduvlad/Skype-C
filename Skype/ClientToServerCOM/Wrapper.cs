@@ -61,10 +61,17 @@ namespace ClientToServerCOM
             comToServer.SetAvailableState(state);
         }
 
+        public List<string> SearchUsers(string query, string username)
+        {
+            return comToServer.SearchUsers(query, username);
+        }
+
 
         public void Attach(I_Out_COM ComServer)
         {
             comToServer = ComServer;
         }
+
+
     }
 }

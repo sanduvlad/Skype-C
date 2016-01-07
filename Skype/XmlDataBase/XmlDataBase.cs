@@ -167,7 +167,7 @@ namespace Interogare
             return 1;
         }
 
-        public string[][] AllFriends(string username)
+        public List<List<string>> AllFriends(string username)
         {
             List<string> friends = new List<string>();
 
@@ -183,9 +183,66 @@ namespace Interogare
             return AllFriendsDetails(friends);
         }
 
-        public string[][] AllFriendsDetails(List<string> friends)
+        public List<string> GetFriends(string username)
         {
-            string[][] Details = null;
+            List<string> friends = new List<string>();
+
+            XElement xDoc = XElement.Load("DB.xml");
+            IEnumerable<XElement> address =
+                from el in xDoc.Elements("friends").Elements(username)
+                select el;
+
+            foreach (XElement el in address)
+            {
+                friends.Add((string)el.Element("friend"));
+            }
+            return friends;
+        }
+
+        public List<string> FindUsers(string query,string username)
+        {
+            List<string> Users = new List<string>();
+            List<string> users = new List<string>();
+            int f=0;
+            XElement xDoc = XElement.Load("DB.xml");
+            List<string> friends = GetFriends(username);
+
+            IEnumerable<XElement> Ausers =
+                from el in xDoc.Elements("users").Elements("user")
+                where (string)el.Attribute("username") != username
+                select el;
+            foreach (XElement el in Ausers)
+            {
+                users.Add((string)el.Attribute("username"));
+            }
+
+            foreach (string el in users)
+            {
+
+                if (el.Contains(query))
+                {
+                    f = 0;
+                    foreach(string u in friends)
+                    {
+                        if (u == el)
+                        {
+                            f = 1;
+                            break;
+                        }
+                    }
+                    if (f != 1)
+                    {
+                        Users.Add(el);
+                        
+                    }
+                }
+            }
+            return Users;
+        }
+
+        public List<List<string>> AllFriendsDetails(List<string> friends)
+        {
+            List<List<string>> Details = null;
             int i = 0, j = 0;
             XElement xDoc = XElement.Load("DB.xml");
 

@@ -48,7 +48,13 @@ namespace Server
         public int SignIn(string userName, string password, string channelURL)
         {
             if (Clients.ContainsKey(userName))
-                return 2;
+                if (db.LogIn(userName, password) == 1)
+                {
+                   // Clients.Add(userName, channelURL);
+                    return 1;
+                }
+                else
+                    return 0;
             else
             {
                 if (db.LogIn(userName, password) == 1)
@@ -61,6 +67,12 @@ namespace Server
                
             }
             
+        }
+
+
+        public List<string> SearchUsers(string query, string username)
+        {
+            return db.FindUsers(query, username);
         }
 
         public void ChangeStatus(string userName, String status)

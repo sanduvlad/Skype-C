@@ -20,6 +20,7 @@ namespace ClientToServerCOM
         int SignOut(string userName);
         int Register(string userName, string password, string email,string nume);
         void ChangeStatus(string userName, String status);
+        List<string> SearchUsers(string query, string username);
         void SearchFriends(string searchBy);
         void AddFriend(string userName);
         void SetAvailableState(AvailableState state);

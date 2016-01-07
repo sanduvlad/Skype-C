@@ -45,5 +45,11 @@ namespace ClientToServerCOM
         {
             Wrapper.GetInstance().SetAvailableState(state);
         }
+
+        public List<string> SearchUsers(string query, string username)
+        {
+            return Wrapper.GetInstance().SearchUsers(query, username);
+        }
+
     }
 }

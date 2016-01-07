@@ -254,6 +254,7 @@
             this.SearchFriendsButton.TabIndex = 7;
             this.SearchFriendsButton.Text = "Search";
             this.SearchFriendsButton.UseVisualStyleBackColor = true;
+            this.SearchFriendsButton.Click += new System.EventHandler(this.SearchFriendsButton_Click);
             // 
             // searchFriendsText
             // 
@@ -277,6 +278,7 @@
             this.addFriendsList.Name = "addFriendsList";
             this.addFriendsList.Size = new System.Drawing.Size(167, 95);
             this.addFriendsList.TabIndex = 4;
+            this.addFriendsList.SelectedIndexChanged += new System.EventHandler(this.addFriendsList_SelectedIndexChanged);
             // 
             // friendsList
             // 
@@ -285,6 +287,7 @@
             this.friendsList.Name = "friendsList";
             this.friendsList.Size = new System.Drawing.Size(167, 420);
             this.friendsList.TabIndex = 3;
+            this.friendsList.SelectedIndexChanged += new System.EventHandler(this.friendsList_SelectedIndexChanged);
             // 
             // menuStrip1
             // 

@@ -90,5 +90,39 @@ namespace Client
             cliToSvr.ChangeStatus(username,StatusesComboBox.Text.ToLower());
 
         }
+
+        private void friendsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SearchFriendsButton_Click(object sender, EventArgs e)
+        {
+            string query = searchFriendsText.Text;
+            if(query.Length<2)
+            {
+                addFriendsLabel.Text = "The searched term needs to be greater than 2 symbols";
+                addFriendsList.Items.Clear();
+            }else
+            {
+                addFriendsLabel.Text = "";
+                addFriendsList.Items.Clear();
+                foreach (string u in cliToSvr.SearchUsers(query, username))
+                {
+                    addFriendsList.Items.Add(u);
+                }
+                if(addFriendsList.Items.Count>0)
+                {
+                    addFriendsLabel.Text = "Click the username you want to add as friend";
+                }
+            }
+        }
+
+        private void addFriendsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string curItem = addFriendsList.SelectedItem.ToString();
+            addFriendsList.SelectedItems.Remove(addFriendsList.SelectedItem);
+            addFriendsList.Refresh();
+        }
     }
 }
