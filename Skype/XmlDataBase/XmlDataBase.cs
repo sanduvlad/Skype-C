@@ -10,7 +10,7 @@ namespace Interogare
 {
     public class XmlDataBase
     {
-        public int verifyUser(string username, string parola)
+        public int VerifyUser(string username, string parola)
         {
             int count = 0;
             XElement xDoc = XElement.Load("DB.xml");
@@ -25,21 +25,22 @@ namespace Interogare
 
         public int LogIn(string username, string parola)
         {
-            if (verifyUser(username, parola) == 0)
+            if (VerifyUser(username, parola) == 1)
             {
-                //Console.WriteLine("Username-ul sau parola sunt gresite");
-                return 0;
+                //Console.WriteLine("Autentificare reusita!");
+                ChangeStatus(username, "online");
+                return 1;
             }
             else
             {
-                //Console.WriteLine("Autentificare reusita!");
-                return 1;
+                //Console.WriteLine("Username-ul sau parola sunt gresite");
+                return 0;
             }
         }
 
         public int Delete(string username, string parola)
         {
-            if (verifyUser(username, parola) == 0)
+            if (VerifyUser(username, parola) == 0)
             {
                 //Console.WriteLine("Nu ai dreptul sa stergi acest cont");
                 return 0;
@@ -61,7 +62,7 @@ namespace Interogare
             }
         }
 
-        public int Register(string username, string parola, string reParola, string nume, string prenume, string varsta)
+        public int Register(string username, string parola, string reParola, string nume, string email)
         {
             if (!parola.Equals(reParola))
             {
@@ -90,10 +91,10 @@ namespace Interogare
             {
                 var myNewElement = new XElement("user",
                    new XAttribute("username", username),
+                   new XAttribute("stare", "offline"),
                    new XElement("parola", parola),
                    new XElement("nume", nume),
-                   new XElement("prenume", prenume),
-                   new XElement("varsta", varsta)
+                   new XElement("email", email)
                     //And so on ...
                 );
 
@@ -121,6 +122,19 @@ namespace Interogare
                 //Console.WriteLine("S-a produs o eroare la incarcarea xml-ului");
                 return 0;
             xDoc.Element("friends").Element(username).Add(myNewElement);
+            xDoc.Save("DB.xml");
+            return 1;
+        }
+
+        public int ChangeStatus(string username, string status)
+        {
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load("DB.xml");
+            XmlElement formData = (XmlElement)xDoc.SelectSingleNode("//users/user[@username='" + username + "']");
+            if (formData != null)
+            {
+                formData.SetAttribute("status", status);
+            }
             xDoc.Save("DB.xml");
             return 1;
         }
