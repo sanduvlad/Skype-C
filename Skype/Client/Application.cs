@@ -123,11 +123,28 @@ namespace Client
                     ConversationTextBox.Text += Environment.NewLine;
                 }
             }
+
+            string friend = friendsList.Items[friendsList.FindString(receiver)].ToString();
+            string exclamation = " ";
+            if (friend.Length > 1)
+            {
+                exclamation = friend.Substring(friend.Length - 1);
+            }
+            if (exclamation.Equals("!"))
+            {
+                friendsList.Items[friendsList.FindString(receiver)] = friend.Remove(friend.Length - 1); 
+            }
+
         }
 
         private void friendsList_SelectedIndexChanged(object sender, EventArgs e)
         {
+<<<<<<< HEAD
                 DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
+=======
+            if(friendsList.SelectedIndex>-1)
+            DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
+>>>>>>> origin/master
 
         }
 
@@ -161,7 +178,16 @@ namespace Client
 
         private void ListFriends()
         {
+<<<<<<< HEAD
             //friendsList.DataSource = null;
+=======
+            friendsList.DataSource = null;
+            int selectedIndex = 0;
+            if(friendsList.SelectedIndex>0)
+            {
+                selectedIndex = friendsList.SelectedIndex;
+            }
+>>>>>>> origin/master
             friendsList.Items.Clear();
             string[] friends = cliToSvr.GetFriends(username);
             foreach (string user in friends)
@@ -175,13 +201,17 @@ namespace Client
                     break;
                 }
             }
-           if(friends.Length>0)
+           if(friends.Length>0&& selectedIndex < 0)
             {
                 if (friendsList.SelectedIndex < 0)
                 {
                     friendsList.SelectedIndex = 0;
                 }
                 DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
+            }
+            if (friends.Length > 0)
+            {
+                friendsList.SelectedIndex = selectedIndex;
             }
         }
 
@@ -209,8 +239,9 @@ namespace Client
             SendMessageTextBox.Text = string.Empty;
         }
 
-        public void DisplayMessageOnScreen(string message)
+        public void DisplayMessageOnScreen(string message,string who)
         {
+<<<<<<< HEAD
             Invoke((MethodInvoker)(() =>
             {
                 DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
@@ -233,6 +264,28 @@ namespace Client
                     }
                 }
             }), parameters);
+=======
+            if (friendsList.SelectedIndex > -1)
+            {
+                //Invoke((MethodInvoker)(() => ConversationTextBox.Text += message + Environment.NewLine));
+                if (who.Equals(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]))
+                    DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
+                else
+                {
+                    string friend = friendsList.Items[friendsList.FindString(who)].ToString();
+                    string exclamation = " ";
+                    if (friend.Length > 1)
+                    {
+                        exclamation = friend.Substring(friend.Length - 1);
+                    }
+                    if (!exclamation.Equals("!"))
+                    {
+                        friendsList.Items[friendsList.FindString(who)] = friend + " !";
+                    }
+
+                }
+            }
+>>>>>>> origin/master
         }
     }
 }

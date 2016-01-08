@@ -8,8 +8,17 @@ using System.Xml.Linq;
 
 namespace Interogare
 {
+    /// <summary>
+    /// Clasa ce contine functii ce lucreaza direct cu baza de date
+    /// </summary>
     public class XmlDataBase
     {
+        /// <summary>
+        /// Functie ce verifica daca username-ul si o parola exista in baza de date
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="parola"></param>
+        /// <returns></returns>
         public int VerifyUser(string username, string parola)
         {
             int count = 0;
@@ -23,6 +32,11 @@ namespace Interogare
             return count;
         }
 
+        /// <summary>
+        /// Functie ce verifica daca un username exista in baza de date
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         public int UserExists(string username)
         {
             int count = 0;
@@ -36,6 +50,12 @@ namespace Interogare
             return count;
         }
 
+        /// <summary>
+        /// Functie ce realizeaza sau nu conexiunea la server
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="parola"></param>
+        /// <returns></returns>
         public int LogIn(string username, string parola)
         {
             if (VerifyUser(username, parola) == 1)
@@ -51,6 +71,11 @@ namespace Interogare
             }
         }
 
+        /// <summary>
+        /// Functie ce delogheaza un user si schimba starea acestuia in oflline
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         public int LogOut(string username)
         {
             if (UserExists(username) == 1)
@@ -66,6 +91,12 @@ namespace Interogare
             }
         }
 
+        /// <summary>
+        /// Functie ce sterge un cont
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="parola"></param>
+        /// <returns></returns>
         public int Delete(string username, string parola)
         {
             if (VerifyUser(username, parola) == 0)
@@ -90,6 +121,15 @@ namespace Interogare
             }
         }
 
+        /// <summary>
+        /// Functie ce realizeaza crearea unui nou cont pentru server, verificand daca username-ul este unic
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="parola"></param>
+        /// <param name="reParola"></param>
+        /// <param name="nume"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public int Register(string username, string parola, string reParola, string nume, string email)
         {
             if (!parola.Equals(reParola))
@@ -141,6 +181,12 @@ namespace Interogare
             }
         }
 
+        /// <summary>
+        /// Functie ce adauga un prieten unui user
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="friend"></param>
+        /// <returns></returns>
         public int AddFriend(string username, string friend)
         {
             var myNewElement = new XElement("friend", friend);
@@ -165,6 +211,12 @@ namespace Interogare
             return 1;
         }
 
+        /// <summary>
+        /// Functie ce schimba statusul unui user
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
         public int ChangeStatus(string username, string status)
         {
             XmlDocument xDoc = new XmlDocument();
@@ -178,6 +230,11 @@ namespace Interogare
             return 1;
         }
 
+        /// <summary>
+        /// Functie ce returneaza toti prietenii unui user impreuna cu statusul acestora
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         public string[] AllFriends(string username)
         {
             List<string> friends = new List<string>();
@@ -196,6 +253,11 @@ namespace Interogare
             return AllFriendsDetails(friends);
         }
 
+        /// <summary>
+        /// Functie ce returneaza toti prietenii unui user 
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         public List<string> GetFriends(string username)
         {
             List<string> friends = new List<string>();
@@ -213,24 +275,30 @@ namespace Interogare
             return friends;
         }
 
+        /// <summary>
+        /// Functie ce cauta toti userii existenti dupa un anumit query introdus
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="username"></param>
+        /// <returns></returns>
         public List<string> FindUsers(string query, string username)
         {
-            List<string> Users = new List<string>();
             List<string> users = new List<string>();
+            List<string> user = new List<string>();
             int f = 0;
             XElement xDoc = XElement.Load("DB.xml");
             List<string> friends = GetFriends(username);
 
-            IEnumerable<XElement> Ausers =
+            IEnumerable<XElement> address =
                 from el in xDoc.Elements("users").Elements("user")
                 where (string)el.Attribute("username") != username
                 select el;
-            foreach (XElement el in Ausers)
+            foreach (XElement el in address)
             {
-                users.Add((string)el.Attribute("username"));
+                user.Add((string)el.Attribute("username"));
             }
 
-            foreach (string el in users)
+            foreach (string el in user)
             {
 
                 if (el.Contains(query))
@@ -246,20 +314,25 @@ namespace Interogare
                     }
                     if (f != 1)
                     {
-                        Users.Add(el);
+                        users.Add(el);
 
                     }
                 }
             }
-            return Users;
+            return users;
         }
 
+        /// <summary>
+        /// Functie ce extrage din baza de date toate detaliile unor useri dati ca parametru
+        /// </summary>
+        /// <param name="friends"></param>
+        /// <returns></returns>
         public string[] AllFriendsDetails(List<string> friends)
         {
-            string[] Details = new string[friends.Count];
+            string[] details = new string[friends.Count];
             for (int j = 0; j < friends.Count; j++)
             {
-                Details[j] = string.Empty;
+                details[j] = string.Empty;
             }
             //username status
             //username2 status2
@@ -282,12 +355,19 @@ namespace Interogare
                     //user.Add((string)elm.Attribute("username"));
                     user.Add((string)elm.Attribute("status"));
                 }
-                Details[i] = (user.ElementAt(0) + " " + user.ElementAt(1)).ToString();
+                details[i] = (user.ElementAt(0) + " " + user.ElementAt(1)).ToString();
                 i++;
             }
-            return Details;
+            return details;
         }
 
+        /// <summary>
+        /// Adauga un mesaj in baza de date
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="receiver"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public int AddMessage(string sender, string receiver, string message)
         {
             int count = 0;
@@ -331,9 +411,15 @@ namespace Interogare
             return 1;
         }
 
+        /// <summary>
+        /// Functie ce returneaza toate mesajele trimise intre 2 users
+        /// </summary>
+        /// <param name="user1"></param>
+        /// <param name="user2"></param>
+        /// <returns></returns>
         public string[] AllMessages(string user1, string user2)
         {
-            List<string> Message = new List<String>();
+            List<string> message = new List<String>();
             IEnumerable<XElement> textMessages = null;
             XElement xDoc = XElement.Load("DB.xml");
 
@@ -355,13 +441,12 @@ namespace Interogare
                 {
                     count++;
                 }
-
             }
 
-            string[] Messages = new string[count];
+            string[] messages = new string[count];
             for (int j = 0; j < count; j++)
             {
-                Messages[j] = string.Empty;
+                messages[j] = string.Empty;
             }
 
             foreach (XElement el in address)
@@ -371,23 +456,20 @@ namespace Interogare
                 select mes;
                 foreach (XElement ms in textMessages)
                 {
-                    Message.Clear();
-                    Message.Add((string)ms.Attribute("created"));
-                    Message.Add((string)el.Attribute("sender"));
-                    Message.Add((string)el.Attribute("receiver"));
-                    Message.Add((string)ms);
-                    Messages[i] = (Message.ElementAt(0) + " " + Message.ElementAt(1) + " " + Message.ElementAt(2) + " " + Message.ElementAt(3)).ToString();
+                    message.Clear();
+                    message.Add((string)ms.Attribute("created"));
+                    message.Add((string)el.Attribute("sender"));
+                    message.Add((string)el.Attribute("receiver"));
+                    message.Add((string)ms);
+                    messages[i] = (message.ElementAt(0) + " " + message.ElementAt(1) + " " + message.ElementAt(2) + " " + message.ElementAt(3)).ToString();
                     i++;
                 }
-
-                
-
             }
-           
-            Array.Sort(Messages);
-            return Messages;
+            Array.Sort(messages);
+            return messages;
         }
 
+<<<<<<< HEAD
         /// <summary>
         /// Functie ce returneaza statusul unui user
         /// </summary>
@@ -410,5 +492,7 @@ namespace Interogare
 
             return status;
         }
+=======
+>>>>>>> origin/master
     }
 }

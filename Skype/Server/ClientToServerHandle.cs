@@ -106,7 +106,6 @@ namespace Server
         {
             //server
             db.AddMessage(fromUserName, toUserName, message);
-
             ServerToClientHandle.SendMessage(message, fromUserName, getClientURL(toUserName));
         }
     }
