@@ -267,6 +267,7 @@
             this.ConversationTextBox.Location = new System.Drawing.Point(185, 27);
             this.ConversationTextBox.Multiline = true;
             this.ConversationTextBox.Name = "ConversationTextBox";
+            this.ConversationTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.ConversationTextBox.Size = new System.Drawing.Size(487, 472);
             this.ConversationTextBox.TabIndex = 8;
             // 

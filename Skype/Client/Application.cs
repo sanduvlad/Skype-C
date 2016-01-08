@@ -236,28 +236,30 @@ namespace Client
 
         public void DisplayMessageOnScreen(string message, string who)
         {
-
-            if (friendsList.SelectedIndex > -1)
+            Invoke((MethodInvoker)(() =>
             {
-                //Invoke((MethodInvoker)(() => ConversationTextBox.Text += message + Environment.NewLine));
-                if (who.Equals(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]))
-                    Invoke((MethodInvoker)(() => DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0])));
-
-                else
+                if (friendsList.SelectedIndex > -1)
                 {
-                    string friend = friendsList.Items[friendsList.FindString(who)].ToString();
-                    string exclamation = " ";
-                    if (friend.Length > 1)
-                    {
-                        exclamation = friend.Substring(friend.Length - 1);
-                    }
-                    if (!exclamation.Equals("!"))
-                    {
-                        friendsList.Items[friendsList.FindString(who)] = friend + " !";
-                    }
+                    //Invoke((MethodInvoker)(() => ConversationTextBox.Text += message + Environment.NewLine));
+                    if (who.Equals(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]))
+                        DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
 
+                    else
+                    {
+                        string friend = friendsList.Items[friendsList.FindString(who)].ToString();
+                        string exclamation = " ";
+                        if (friend.Length > 1)
+                        {
+                            exclamation = friend.Substring(friend.Length - 1);
+                        }
+                        if (!exclamation.Equals("!"))
+                        {
+                            friendsList.Items[friendsList.FindString(who)] = friend + " !";
+                        }
+
+                    }
                 }
-            }
+            }));
 
         }
 
