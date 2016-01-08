@@ -16,6 +16,7 @@ namespace Client
         ClientToServerHandle cliToSvr;
         ServerToClientHandle svrToCli;
         String username;
+        bool loggedIn = false;
         Dictionary<string, string> friendchoices = new Dictionary<string, string>();
 
 
@@ -26,7 +27,7 @@ namespace Client
         {
             //StatusesComboBox.Enabled = false;
             InitializeComponent();
-            this.AcceptButton = SendMessageButton;
+            this.AcceptButton = LoginButton;
             cliToSvr = new ClientToServerHandle();
             svrToCli = new ServerToClientHandle(this);
             ServerToClientCOM.Wrapper.GetInstance().Attach(svrToCli);
@@ -45,6 +46,8 @@ namespace Client
             {
                 loginPanel.Visible = true;
                 mainPanel.Visible = false;
+                cliToSvr.ChangeStatus(username, "offline");
+                loggedIn = false;
             }
         }
         
@@ -88,7 +91,11 @@ namespace Client
                 loginResponseLabel.Text = "";
                 UsernameApplicationTextBox.Text = username;
                 StatusesComboBox.SelectedItem = "Online";
+                ConversationTextBox.Text = string.Empty;
                 ListFriends();
+                this.AcceptButton = SendMessageButton;
+                cliToSvr.ChangeStatus(username, "online");
+                loggedIn = true;
             }
             else
             {
@@ -97,6 +104,7 @@ namespace Client
                 loginPanel.Visible = true;
                 mainPanel.Visible = false;
                 loginResponseLabel.Text = "Login Failed";
+                loggedIn = false;
             }
         }
 
@@ -303,6 +311,8 @@ namespace Client
             DateTime thisDay = DateTime.Now;
             ConversationTextBox.Text += thisDay.ToString("dd/MM/yy H:mm:ss") + " | Me ---> " + SendMessageTextBox.Text + Environment.NewLine;
             SendMessageTextBox.Text = string.Empty;
+            ConversationTextBox.SelectionStart = ConversationTextBox.Text.Length;
+            ConversationTextBox.ScrollToCaret();
         }
 
         /// <summary>
@@ -381,6 +391,15 @@ namespace Client
         private void SendMessageTextBox_TextChanged(object sender, EventArgs e)
         {
             this.AcceptButton = SendMessageButton;
+        }
+
+        private void Application_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (loggedIn == true)
+            {
+                cliToSvr.ChangeStatus(username, "offline");
+                cliToSvr.SignOut(username);
+            }
         }
     }
 }

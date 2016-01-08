@@ -43,11 +43,11 @@
             this.PasswordLoginButton = new System.Windows.Forms.Label();
             this.mesajLogare = new System.Windows.Forms.Label();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.ConversationTextBox = new System.Windows.Forms.TextBox();
             this.StatusesComboBox = new System.Windows.Forms.ComboBox();
             this.UsernameApplicationTextBox = new System.Windows.Forms.Label();
             this.SendMessageButton = new System.Windows.Forms.Button();
             this.SendMessageTextBox = new System.Windows.Forms.TextBox();
-            this.ConversationTextBox = new System.Windows.Forms.TextBox();
             this.SearchFriendsButton = new System.Windows.Forms.Button();
             this.searchFriendsText = new System.Windows.Forms.TextBox();
             this.addFriendsLabel = new System.Windows.Forms.Label();
@@ -203,11 +203,11 @@
             // 
             // mainPanel
             // 
+            this.mainPanel.Controls.Add(this.ConversationTextBox);
             this.mainPanel.Controls.Add(this.StatusesComboBox);
             this.mainPanel.Controls.Add(this.UsernameApplicationTextBox);
             this.mainPanel.Controls.Add(this.SendMessageButton);
             this.mainPanel.Controls.Add(this.SendMessageTextBox);
-            this.mainPanel.Controls.Add(this.ConversationTextBox);
             this.mainPanel.Controls.Add(this.SearchFriendsButton);
             this.mainPanel.Controls.Add(this.searchFriendsText);
             this.mainPanel.Controls.Add(this.addFriendsLabel);
@@ -220,6 +220,16 @@
             this.mainPanel.Size = new System.Drawing.Size(684, 662);
             this.mainPanel.TabIndex = 14;
             this.mainPanel.Visible = false;
+            // 
+            // ConversationTextBox
+            // 
+            this.ConversationTextBox.Location = new System.Drawing.Point(185, 27);
+            this.ConversationTextBox.Multiline = true;
+            this.ConversationTextBox.Name = "ConversationTextBox";
+            this.ConversationTextBox.ReadOnly = true;
+            this.ConversationTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ConversationTextBox.Size = new System.Drawing.Size(487, 472);
+            this.ConversationTextBox.TabIndex = 8;
             // 
             // StatusesComboBox
             // 
@@ -262,15 +272,6 @@
             this.SendMessageTextBox.Size = new System.Drawing.Size(487, 98);
             this.SendMessageTextBox.TabIndex = 9;
             this.SendMessageTextBox.TextChanged += new System.EventHandler(this.SendMessageTextBox_TextChanged);
-            // 
-            // ConversationTextBox
-            // 
-            this.ConversationTextBox.Location = new System.Drawing.Point(185, 27);
-            this.ConversationTextBox.Multiline = true;
-            this.ConversationTextBox.Name = "ConversationTextBox";
-            this.ConversationTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ConversationTextBox.Size = new System.Drawing.Size(487, 472);
-            this.ConversationTextBox.TabIndex = 8;
             // 
             // SearchFriendsButton
             // 
@@ -337,7 +338,7 @@
             // logOutToolStripMenuItem
             // 
             this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.logOutToolStripMenuItem.Text = "Log Out";
             this.logOutToolStripMenuItem.Click += new System.EventHandler(this.logOutToolStripMenuItem_Click);
             // 
@@ -472,6 +473,7 @@
             this.MainMenuStrip = this.menuStrip3;
             this.Name = "Application";
             this.Text = "Skype";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Application_FormClosing);
             this.loginPanel.ResumeLayout(false);
             this.loginPanel.PerformLayout();
             this.menuStrip2.ResumeLayout(false);

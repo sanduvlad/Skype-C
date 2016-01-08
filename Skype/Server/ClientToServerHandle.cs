@@ -68,7 +68,7 @@ namespace Server
 
         /// <summary>
         /// Apeleaza funtia de logare din dll si executa sau nu logarea
-        /// </summary>
+        /// </`ummary>
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <param name="channelURL"></param>

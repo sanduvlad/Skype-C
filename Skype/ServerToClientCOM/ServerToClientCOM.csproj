@@ -39,7 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="I_In_COM.cs" />
+    <Compile Include="IInCom.cs" />
     <Compile Include="RemotableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wrapper.cs" />
