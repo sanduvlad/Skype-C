@@ -16,11 +16,21 @@ namespace Client
         private string ipAddresss = string.Empty;
         private ClientToServerCOM.RemotableObject remoteServerOBJ;
 
+
+        /// <summary>
+        /// Functie ce returneaza adresa serverului
+        /// </summary>
+        /// <returns></returns>
         public String GetServerAddress()
         {
             return "localhost";
         }
 
+
+        /// <summary>
+        /// functie de initializare conexiune
+        /// </summary>
+        /// <param name="serverIP"></param>
         public void InitConnectionToServer(string serverIP)
         {
             //TCP - Initialize object reference to server proxy
@@ -38,21 +48,46 @@ namespace Client
             //************
         }
 
+        /// <summary>
+        /// Adaugare user , trimitere catre server
+        /// </summary>
+        /// <param name="username"> Username</param>
+        /// <param name="friend"> Username al prietenului adaugat</param>
+
         public void AddFriend(string userName,string friend)
         {
             remoteServerOBJ.AddFriend(userName,friend);
         }
 
+
+        /// <summary>
+        /// Functie de returnare a prietenilor userului dat ca parametru
+        /// </summary>
+        /// <param name="username"> Username </param>
+        /// <returns></returns>
         public string[] GetFriends(string username)
         {
             return remoteServerOBJ.GetFriends(username);
         }
 
+
+        /// <summary>
+        /// Functie de trimitere a mesajului
+        /// </summary>
+        /// <param name="fromUsername">Userului catre care se trimite</param>
+        /// <param name="toUsername">Userul care primeste</param>
+        /// <param name="message">Mesajul trimis</param>
         public void SendMessage(string fromUserName, string toUserName, string message)
         {
             remoteServerOBJ.SendMessage(fromUserName, toUserName, message);
         }
 
+        /// <summary>
+        /// Functie ce returneaza toate mesajele dintre 2 useri
+        /// </summary>
+        /// <param name="username">Primul user</param>
+        /// <param name="receiver">All doilea user</param>
+        /// <returns></returns>
         public string[] GetMessages(string username, string receiver)
         {
             return remoteServerOBJ.GetMessages(username, receiver);
@@ -85,24 +120,50 @@ namespace Client
             return remoteServerOBJ.SignIn(userName, password, clientChannelURL);
         }
 
+
+        /// <summary>
+        /// Apel functie sign out, returneaza rezultatul de la server
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <returns></returns>
         public int SignOut(string userName)
         {
             return remoteServerOBJ.SignOut(userName);
 
         }
 
+        /// <summary>
+        /// Schimbare status user , returneaza rezultatul de la server
+        /// </summary>
+        /// <param name="username"> Username</param>
+        /// <param name="status"> Status</param>
         public void ChangeStatus(string userName,String status)
         {
             remoteServerOBJ.ChangeStatus(userName, status);
 
         }
 
+        /// <summary>
+        /// Apel functie Register,returneaza rezultatul de la server
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="password">Parola</param>
+        /// <param name="email">Emailul</param>
+        /// <param name="nume">Nume</param>
+        /// <returns></returns>
         public int Register(string userName, string password, string email, string nume)
         {
             return remoteServerOBJ.Register(userName, password, email,nume);
 
         }
 
+
+        // <summary>
+        /// Returneaza toti userii din baza de date care nu sunt prieteni cu userul dat ca parametru si incep cu stringul query
+        /// </summary>
+        /// <param name="query"> Stringul cautat</param>
+        /// <param name="username">Userul pentru care se cauta</param>
+        /// <returns></returns>
         public List<string> SearchUsers(string query,string username)
         {
             return remoteServerOBJ.SearchUsers(query, username);

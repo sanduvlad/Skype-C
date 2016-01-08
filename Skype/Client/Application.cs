@@ -18,6 +18,10 @@ namespace Client
         String username;
         Dictionary<string, string> friendchoices = new Dictionary<string, string>();
 
+
+        /// <summary>
+        /// Construct method that starts the application
+        /// </summary>
         public Application()
         {
             //StatusesComboBox.Enabled = false;
@@ -30,6 +34,11 @@ namespace Client
         }
 
 
+        /// <summary>
+        /// Logout click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (cliToSvr.SignOut(username) == 1)
@@ -38,19 +47,35 @@ namespace Client
                 mainPanel.Visible = false;
             }
         }
+        
 
+        /// <summary>
+        /// Register click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RegisterMenuItem_Click(object sender, EventArgs e)
         {
             loginPanel.Visible = false;
             registerPanel.Visible = true;
         }
 
+        /// <summary>
+        /// Login menu item click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void loginToolStripMenuItem_Click(object sender, EventArgs e)
         {
             loginPanel.Visible = true;
             registerPanel.Visible = false;
         }
 
+        /// <summary>
+        /// Login button click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bLogin_Click(object sender, EventArgs e)
         {
             String serverIp = cliToSvr.GetServerAddress();
@@ -78,6 +103,11 @@ namespace Client
 
 
 
+        /// <summary>
+        /// Register Button Click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RegisterButton_Click(object sender, EventArgs e)
         {
             String serverIp = cliToSvr.GetServerAddress();
@@ -93,12 +123,21 @@ namespace Client
 
         }
 
+        /// <summary>
+        /// Status change event handle
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StatusesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             cliToSvr.ChangeStatus(username, StatusesComboBox.Text.ToLower());
 
         }
 
+        /// <summary>
+        /// Afiseaza covnersatia dintre userul curent si userul primit ca parametru
+        /// </summary>
+        /// <param name="receiver">Reveiver</param>
         private void DisplayConversation(string receiver)
         {
             string[] allmessages = cliToSvr.GetMessages(username, receiver);
@@ -142,6 +181,11 @@ namespace Client
 
         }
 
+        /// <summary>
+        /// Event click lista de prieteni
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void friendsList_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -150,11 +194,19 @@ namespace Client
 
         }
 
+        /// <summary>
+        /// Event handle pentru butonul de search
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SearchFriendsButton_Click(object sender, EventArgs e)
         {
             listSearchedUsers();
         }
 
+        /// <summary>
+        /// Functie ce trateaza search-ul 
+        /// </summary>
         private void listSearchedUsers()
         {
             string query = searchFriendsText.Text;
@@ -178,6 +230,10 @@ namespace Client
             }
         }
 
+
+        /// <summary>
+        /// Functie ce listeaza prietenii in listbox
+        /// </summary>
         private void ListFriends()
         {
 
@@ -214,6 +270,11 @@ namespace Client
             }
         }
 
+        /// <summary>
+        /// Event handle pentru click pe lista de prieteni
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addFriendsList_SelectedIndexChanged(object sender, EventArgs e)
         {
             string friendSelected = String.Copy(addFriendsList.SelectedItem.ToString());
@@ -222,6 +283,12 @@ namespace Client
             listSearchedUsers();
         }
 
+
+        /// <summary>
+        /// Event-ul de click pe butonul de send message
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SendMessageButton_Click(object sender, EventArgs e)
         {
 
@@ -238,6 +305,11 @@ namespace Client
             SendMessageTextBox.Text = string.Empty;
         }
 
+        /// <summary>
+        /// Functie de afisare a unui mesaj primit
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="who"></param>
         public void DisplayMessageOnScreen(string message, string who)
         {
             Invoke((MethodInvoker)(() =>
@@ -267,6 +339,11 @@ namespace Client
 
         }
 
+        /// <summary>
+        /// Functie ce trateaza schimbarea de status
+        /// </summary>
+        /// <param name="userNameParam"></param>
+        /// <param name="state"></param>
         public void UserChangedStatus(string userNameParam, string state)
         {
             //Thread.Sleep(2000);
@@ -285,11 +362,22 @@ namespace Client
 
         }
 
+        /// <summary>
+        /// Eventul apelat la schimbarea de text in boxul de search prieteni
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void searchFriendsText_TextChanged(object sender, EventArgs e)
         {
             this.AcceptButton = SearchFriendsButton;
         }
 
+
+        /// <summary>
+        /// Eventul apelat la schimbarea de text in text boxul de adaugare mesaj
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SendMessageTextBox_TextChanged(object sender, EventArgs e)
         {
             this.AcceptButton = SendMessageButton;
