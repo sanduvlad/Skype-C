@@ -20,7 +20,7 @@ namespace Client
         public void MessageReceived(string message, string userName)
         {
             //Invoke((MethodInvoker)(() => lblName.Text = "Meep"));
-            app.DisplayMessageOnScreen(userName + ": " + message);
+            app.DisplayMessageOnScreen(message, userName);
         }
 
         public void SearchUserList(List<string> searchByList)
