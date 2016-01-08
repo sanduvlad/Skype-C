@@ -261,6 +261,7 @@
             this.SendMessageTextBox.Name = "SendMessageTextBox";
             this.SendMessageTextBox.Size = new System.Drawing.Size(487, 98);
             this.SendMessageTextBox.TabIndex = 9;
+            this.SendMessageTextBox.TextChanged += new System.EventHandler(this.SendMessageTextBox_TextChanged);
             // 
             // ConversationTextBox
             // 
@@ -287,6 +288,7 @@
             this.searchFriendsText.Name = "searchFriendsText";
             this.searchFriendsText.Size = new System.Drawing.Size(107, 20);
             this.searchFriendsText.TabIndex = 6;
+            this.searchFriendsText.TextChanged += new System.EventHandler(this.searchFriendsText_TextChanged);
             // 
             // addFriendsLabel
             // 
