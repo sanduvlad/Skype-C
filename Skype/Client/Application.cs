@@ -101,7 +101,7 @@ namespace Client
             ConversationTextBox.Text= string.Empty;
             foreach (string message in allmessages)
             {
-                if(message[1].Equals(username))
+                if(message.Split(' ')[3].Equals(username))
                 {
                     ConversationTextBox.Text += message.Split(' ')[0]+" "+ message.Split(' ')[1] + " " + message.Split(' ')[2] + " | Me ---> " + message.Split(' ')[5] + Environment.NewLine;
                 }
