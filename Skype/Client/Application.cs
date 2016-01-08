@@ -51,7 +51,7 @@ namespace Client
         private void bLogin_Click(object sender, EventArgs e)
         {
             String serverIp = cliToSvr.GetServerAddress();
-            cliToSvr.InitConnectionToServer("192.168.0.101");
+            cliToSvr.InitConnectionToServer(serverIp);
             if(cliToSvr.SignIn(UsernameLoginTextBox.Text, PasswordLoginTextBox.Text)==1)
             {
                 username = UsernameLoginTextBox.Text;

@@ -144,11 +144,22 @@ namespace Interogare
         public int AddFriend(string username, string friend)
         {
             var myNewElement = new XElement("friend", friend);
-
+            int count = 0;
             XElement xDoc = XElement.Load("DB.xml");
+            IEnumerable<XElement> address =
+               from el in xDoc.Elements("friends").Elements(username)
+               select el;
+            foreach (XElement el in address)
+                count++;
+          
             if (xDoc == null)
                 //Console.WriteLine("S-a produs o eroare la incarcarea xml-ului");
                 return 0;
+            if (count == 0)
+            {
+                xDoc.Element("friends").Add(new XElement(username, null));
+            }
+
             xDoc.Element("friends").Element(username).Add(myNewElement);
             xDoc.Save("DB.xml");
             return 1;
@@ -191,13 +202,13 @@ namespace Interogare
 
             XElement xDoc = XElement.Load("DB.xml");
             IEnumerable<XElement> address =
-                from el in xDoc.Elements("friends").Elements(username)
+                from el in xDoc.Elements("friends").Elements(username).Elements("friend")
                 select el;
 
             foreach (XElement el in address)
             {
-                foreach (XElement elm in el.Elements("friend"))
-                    friends.Add((string)el.Element("friend"));
+
+                friends.Add((string)el);
             }
             return friends;
         }

@@ -16,7 +16,10 @@ namespace Server
 
         public string getClientURL(string userName)
         {
-            return Clients[userName];
+            if (Clients.ContainsKey(userName))
+                return Clients[userName];
+            else
+                return "0";
         }
 
         public void AddFriend(string userName,string friend)

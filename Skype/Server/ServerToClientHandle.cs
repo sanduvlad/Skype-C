@@ -12,10 +12,13 @@ namespace Server
 
         public static void SendMessage(string message, string fromUserName, string toUserNameChannelURL)
         {
-            ClientRemoteObject =
-                (ServerToClientCOM.RemotableObject)Activator.GetObject(typeof(ServerToClientCOM.RemotableObject),
-                toUserNameChannelURL);
-            ClientRemoteObject.MessageReceived(message, fromUserName);
+            if (!toUserNameChannelURL.Equals("0"))
+            {
+                ClientRemoteObject =
+                  (ServerToClientCOM.RemotableObject)Activator.GetObject(typeof(ServerToClientCOM.RemotableObject),
+                  toUserNameChannelURL);
+                ClientRemoteObject.MessageReceived(message, fromUserName);
+            }
         }
     }
 }
