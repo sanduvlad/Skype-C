@@ -468,8 +468,7 @@ namespace Interogare
             Array.Sort(messages);
             return messages;
         }
-
-<<<<<<< HEAD
+        
         /// <summary>
         /// Functie ce returneaza statusul unui user
         /// </summary>
@@ -492,7 +491,5 @@ namespace Interogare
 
             return status;
         }
-=======
->>>>>>> origin/master
     }
 }

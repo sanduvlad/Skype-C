@@ -16,7 +16,7 @@ namespace Client
         ClientToServerHandle cliToSvr;
         ServerToClientHandle svrToCli;
         String username;
-        Dictionary<string, string>friendchoices = new Dictionary<string, string>();
+        Dictionary<string, string> friendchoices = new Dictionary<string, string>();
 
         public Application()
         {
@@ -32,7 +32,7 @@ namespace Client
 
         private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (cliToSvr.SignOut(username)==1)
+            if (cliToSvr.SignOut(username) == 1)
             {
                 loginPanel.Visible = true;
                 mainPanel.Visible = false;
@@ -55,7 +55,7 @@ namespace Client
         {
             String serverIp = cliToSvr.GetServerAddress();
             cliToSvr.InitConnectionToServer(serverIp);
-            if(cliToSvr.SignIn(UsernameLoginTextBox.Text, PasswordLoginTextBox.Text)==1)
+            if (cliToSvr.SignIn(UsernameLoginTextBox.Text, PasswordLoginTextBox.Text) == 1)
             {
                 username = UsernameLoginTextBox.Text;
                 loginPanel.Visible = false;
@@ -74,37 +74,38 @@ namespace Client
                 loginResponseLabel.Text = "Login Failed";
             }
         }
-        
 
-       
+
+
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
             String serverIp = cliToSvr.GetServerAddress();
             cliToSvr.InitConnectionToServer(serverIp);
-            if(cliToSvr.Register(UsernameRegisterTextBox.Text, PasswordRegisterTextBox.Text, EmailRegisterTextBox.Text, NameRegisterTextBox.Text)==1)
+            if (cliToSvr.Register(UsernameRegisterTextBox.Text, PasswordRegisterTextBox.Text, EmailRegisterTextBox.Text, NameRegisterTextBox.Text) == 1)
             {
                 ResponseRegisterLabel.Text = "Register Succeded";
-            }else
+            }
+            else
             {
                 ResponseRegisterLabel.Text = "Register Failed";
             }
-                
+
         }
 
         private void StatusesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cliToSvr.ChangeStatus(username,StatusesComboBox.Text.ToLower());
+            cliToSvr.ChangeStatus(username, StatusesComboBox.Text.ToLower());
 
         }
 
         private void DisplayConversation(string receiver)
         {
             string[] allmessages = cliToSvr.GetMessages(username, receiver);
-            ConversationTextBox.Text= string.Empty;
+            ConversationTextBox.Text = string.Empty;
             foreach (string message in allmessages)
             {
-                if(message.Split(' ')[2].Equals(username))
+                if (message.Split(' ')[2].Equals(username))
                 {
                     ConversationTextBox.Text += message.Split(' ')[0] + " " + message.Split(' ')[1] + " | Me ---> "; //+ message.Split(' ')[4] + Environment.NewLine;
                     for (int i = 4; i < message.Split(' ').Length; i++)
@@ -132,19 +133,16 @@ namespace Client
             }
             if (exclamation.Equals("!"))
             {
-                friendsList.Items[friendsList.FindString(receiver)] = friend.Remove(friend.Length - 1); 
+                friendsList.Items[friendsList.FindString(receiver)] = friend.Remove(friend.Length - 1);
             }
 
         }
 
         private void friendsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-<<<<<<< HEAD
+
+            if (friendsList.SelectedIndex > -1)
                 DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
-=======
-            if(friendsList.SelectedIndex>-1)
-            DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
->>>>>>> origin/master
 
         }
 
@@ -178,16 +176,13 @@ namespace Client
 
         private void ListFriends()
         {
-<<<<<<< HEAD
-            //friendsList.DataSource = null;
-=======
+
             friendsList.DataSource = null;
             int selectedIndex = 0;
-            if(friendsList.SelectedIndex>0)
+            if (friendsList.SelectedIndex > 0)
             {
                 selectedIndex = friendsList.SelectedIndex;
             }
->>>>>>> origin/master
             friendsList.Items.Clear();
             string[] friends = cliToSvr.GetFriends(username);
             foreach (string user in friends)
@@ -201,7 +196,7 @@ namespace Client
                     break;
                 }
             }
-           if(friends.Length>0&& selectedIndex < 0)
+            if (friends.Length > 0 && selectedIndex < 0)
             {
                 if (friendsList.SelectedIndex < 0)
                 {
@@ -239,37 +234,15 @@ namespace Client
             SendMessageTextBox.Text = string.Empty;
         }
 
-        public void DisplayMessageOnScreen(string message,string who)
+        public void DisplayMessageOnScreen(string message, string who)
         {
-<<<<<<< HEAD
-            Invoke((MethodInvoker)(() =>
-            {
-                DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
-            }));
-            
-        }
 
-        public void UserChangedStatus(string userNameParam, string state)
-        {
-            //Thread.Sleep(2000);
-            object[] parameters = new object[] { userNameParam};
-            Invoke((MethodInvoker)(() =>
-            {
-                for (int i = 0; i < friendsList.Items.Count; i++)
-                {
-                    if (friendsList.Items[i].ToString().Contains((string)parameters[0]))
-                    {
-                        friendsList.Items[i] = friendsList.Items[i].ToString().Split(' ')[0] + " - " + state;
-                        break;
-                    }
-                }
-            }), parameters);
-=======
             if (friendsList.SelectedIndex > -1)
             {
                 //Invoke((MethodInvoker)(() => ConversationTextBox.Text += message + Environment.NewLine));
                 if (who.Equals(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]))
-                    DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
+                    Invoke((MethodInvoker)(() => DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0])));
+
                 else
                 {
                     string friend = friendsList.Items[friendsList.FindString(who)].ToString();
@@ -285,7 +258,25 @@ namespace Client
 
                 }
             }
->>>>>>> origin/master
+
+        }
+
+        public void UserChangedStatus(string userNameParam, string state)
+        {
+            //Thread.Sleep(2000);
+            object[] parameters = new object[] { userNameParam };
+            Invoke((MethodInvoker)(() =>
+            {
+                for (int i = 0; i < friendsList.Items.Count; i++)
+                {
+                    if (friendsList.Items[i].ToString().Contains((string)parameters[0]))
+                    {
+                        friendsList.Items[i] = friendsList.Items[i].ToString().Split(' ')[0] + " - " + state;
+                        break;
+                    }
+                }
+            }), parameters);
+
         }
     }
 }
