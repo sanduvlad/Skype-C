@@ -10,6 +10,12 @@ namespace Server
     {
         static ServerToClientCOM.RemotableObject ClientRemoteObject;
 
+        /// <summary>
+        /// Trimite un mesaj primit dela un user spre celalalt user
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="fromUserName"></param>
+        /// <param name="toUserNameChannelURL"></param>
         public static void SendMessage(string message, string fromUserName, string toUserNameChannelURL)
         {
             if (!toUserNameChannelURL.Equals("0"))
@@ -20,8 +26,6 @@ namespace Server
                 ClientRemoteObject.MessageReceived(message, fromUserName);
             }
         }
-
-
 
         public void MessageReceived(string message, string userName)
         {
