@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using Interogare;
 namespace Server
 {
-    class ClientToServerHandle : ClientToServerCOM.I_Out_COM
+    class ClientToServerHandle : ClientToServerCOM.IOutCom
     {
         private Dictionary<string, string> Clients = new Dictionary<string, string>();
         // userName, channelURL //
