@@ -20,5 +20,30 @@ namespace Server
                 ClientRemoteObject.MessageReceived(message, fromUserName);
             }
         }
+
+
+
+        public void MessageReceived(string message, string userName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SearchUserList(List<string> searchByList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void SetUserStatus(string clientUrl, string userName, string status)
+        {
+            ClientRemoteObject =
+                  (ServerToClientCOM.RemotableObject)Activator.GetObject(typeof(ServerToClientCOM.RemotableObject),
+                  clientUrl);
+            ClientRemoteObject.SetUserStatus(userName, status);
+        }
+
+        public void UpdateFriendList(List<string> friendsList)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

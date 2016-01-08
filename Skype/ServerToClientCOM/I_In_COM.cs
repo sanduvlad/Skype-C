@@ -20,6 +20,6 @@ namespace ServerToClientCOM
         void SearchUserList(List<string> searchByList);
         void MessageReceived(string message, string userName);
 
-        void SetUserStatus(string userName, AvailableState state);
+        void SetUserStatus(string userName, string status);
     }
 }

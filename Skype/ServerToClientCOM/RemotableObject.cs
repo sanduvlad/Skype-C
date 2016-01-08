@@ -22,5 +22,10 @@ namespace ServerToClientCOM
         {
             Wrapper.GetInstance().MessageReceived(message, userName);
         }
+
+        public void SetUserStatus(string userName, string status)
+        {
+            Wrapper.GetInstance().SetUserStatus(userName, status);
+        }
     }
 }

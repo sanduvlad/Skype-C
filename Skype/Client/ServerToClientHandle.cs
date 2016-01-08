@@ -34,9 +34,10 @@ namespace Client
         }
 
 
-        public void SetUserStatus(string userName, ServerToClientCOM.AvailableState state)
+        public void SetUserStatus(string userName, string state)
         {
-            
+            app.UserChangedStatus(userName, state);
+
         }
     }
 }

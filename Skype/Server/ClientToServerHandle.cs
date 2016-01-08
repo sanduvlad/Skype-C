@@ -79,6 +79,14 @@ namespace Server
         {
             db.ChangeStatus(userName, status);
 
+            //ServerToClientHandle.SetUserStatus(getClientURL(userName), userName, status);
+            foreach (KeyValuePair<string, string> pair in Clients)
+            {
+                if (pair.Key != userName)
+                {
+                    ServerToClientHandle.SetUserStatus(pair.Value, userName, status);
+                }
+            }
         }
 
         public int SignOut(string userName)

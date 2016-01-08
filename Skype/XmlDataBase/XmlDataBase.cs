@@ -387,5 +387,28 @@ namespace Interogare
             Array.Sort(Messages);
             return Messages;
         }
+
+        /// <summary>
+        /// Functie ce returneaza statusul unui user
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public string GetStatus(string username)
+        {
+            XElement xDoc = XElement.Load("DB.xml");
+            IEnumerable<XElement> address =
+                from el in xDoc.Elements("users").Elements("user")
+                where (string)el.Attribute("username") == username
+                select el;
+
+            string status = null;
+
+            foreach (XElement elm in address)
+            {
+                status = (string)elm.Attribute("status");
+            }
+
+            return status;
+        }
     }
 }

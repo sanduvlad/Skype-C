@@ -34,7 +34,7 @@ namespace Client
             catch { }
             
 
-            remoteServerOBJ = (ClientToServerCOM.RemotableObject)Activator.GetObject(typeof(ClientToServerCOM.RemotableObject), "tcp://" + serverIP + ":8080" + "/ClientToServer");
+            remoteServerOBJ = (ClientToServerCOM.RemotableObject)Activator.GetObject(typeof(ClientToServerCOM.RemotableObject), "tcp://" + "192.168.0.101" + ":8080" + "/ClientToServer");
             //************
         }
 

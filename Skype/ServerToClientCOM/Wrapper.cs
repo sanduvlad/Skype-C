@@ -44,5 +44,10 @@ namespace ServerToClientCOM
         {
             comToClient.MessageReceived(message, userName);
         }
+
+        public void SetUserStatus(string userName, string status)
+        {
+            comToClient.SetUserStatus(userName, status);
+        }
     }
 }

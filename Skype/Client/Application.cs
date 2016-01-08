@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,11 +20,13 @@ namespace Client
 
         public Application()
         {
+            //StatusesComboBox.Enabled = false;
             InitializeComponent();
             this.AcceptButton = SendMessageButton;
             cliToSvr = new ClientToServerHandle();
             svrToCli = new ServerToClientHandle(this);
             ServerToClientCOM.Wrapper.GetInstance().Attach(svrToCli);
+            StatusesComboBox.Enabled = true;
         }
 
 
@@ -103,18 +106,28 @@ namespace Client
             {
                 if(message.Split(' ')[2].Equals(username))
                 {
-                    ConversationTextBox.Text += message.Split(' ')[0]+" "+ message.Split(' ')[1] + " | Me ---> " + message.Split(' ')[4] + Environment.NewLine;
+                    ConversationTextBox.Text += message.Split(' ')[0] + " " + message.Split(' ')[1] + " | Me ---> "; //+ message.Split(' ')[4] + Environment.NewLine;
+                    for (int i = 4; i < message.Split(' ').Length; i++)
+                    {
+                        ConversationTextBox.Text += message.Split(' ')[i] + " ";
+                    }
+                    ConversationTextBox.Text += Environment.NewLine;
                 }
                 else
                 {
-                    ConversationTextBox.Text += message.Split(' ')[0] + " " + message.Split(' ')[1] + " | "+ message.Split(' ')[2] + " ---> " + message.Split(' ')[4] + Environment.NewLine;
+                    ConversationTextBox.Text += message.Split(' ')[0] + " " + message.Split(' ')[1] + " | " + message.Split(' ')[2] + " ---> "; //+ message.Split(' ')[4] + Environment.NewLine;
+                    for (int i = 4; i < message.Split(' ').Length; i++)
+                    {
+                        ConversationTextBox.Text += message.Split(' ')[i] + " ";
+                    }
+                    ConversationTextBox.Text += Environment.NewLine;
                 }
             }
         }
 
         private void friendsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
+                DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
 
         }
 
@@ -148,7 +161,7 @@ namespace Client
 
         private void ListFriends()
         {
-            friendsList.DataSource = null;
+            //friendsList.DataSource = null;
             friendsList.Items.Clear();
             string[] friends = cliToSvr.GetFriends(username);
             foreach (string user in friends)
@@ -198,8 +211,28 @@ namespace Client
 
         public void DisplayMessageOnScreen(string message)
         {
-            //Invoke((MethodInvoker)(() => ConversationTextBox.Text += message + Environment.NewLine));
-            DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
+            Invoke((MethodInvoker)(() =>
+            {
+                DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
+            }));
+            
+        }
+
+        public void UserChangedStatus(string userNameParam, string state)
+        {
+            //Thread.Sleep(2000);
+            object[] parameters = new object[] { userNameParam};
+            Invoke((MethodInvoker)(() =>
+            {
+                for (int i = 0; i < friendsList.Items.Count; i++)
+                {
+                    if (friendsList.Items[i].ToString().Contains((string)parameters[0]))
+                    {
+                        friendsList.Items[i] = friendsList.Items[i].ToString().Split(' ')[0] + " - " + state;
+                        break;
+                    }
+                }
+            }), parameters);
         }
     }
 }
