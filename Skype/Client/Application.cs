@@ -123,7 +123,11 @@ namespace Client
                     }
                     ConversationTextBox.Text += Environment.NewLine;
                 }
+
+                ConversationTextBox.SelectionStart = ConversationTextBox.Text.Length;
+                ConversationTextBox.ScrollToCaret();
             }
+
 
             string friend = friendsList.Items[friendsList.FindString(receiver)].ToString();
             string exclamation = " ";
@@ -279,6 +283,16 @@ namespace Client
                 }
             }), parameters);
 
+        }
+
+        private void searchFriendsText_TextChanged(object sender, EventArgs e)
+        {
+            this.AcceptButton = SearchFriendsButton;
+        }
+
+        private void SendMessageTextBox_TextChanged(object sender, EventArgs e)
+        {
+            this.AcceptButton = SendMessageButton;
         }
     }
 }
