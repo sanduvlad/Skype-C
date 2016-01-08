@@ -350,6 +350,10 @@ namespace Interogare
             }
 
             string[] Messages = new string[count];
+            for (int j = 0; j < count; j++)
+            {
+                Messages[j] = string.Empty;
+            }
 
             foreach (XElement el in address)
             {
@@ -363,7 +367,7 @@ namespace Interogare
                 i++;
             }
 
-            //sort Messages dupa data adica created
+            Array.Sort(Messages);
 
             return Messages;
         }
