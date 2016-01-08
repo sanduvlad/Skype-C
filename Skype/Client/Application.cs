@@ -101,13 +101,13 @@ namespace Client
             ConversationTextBox.Text= string.Empty;
             foreach (string message in allmessages)
             {
-                if(message.Split(' ')[3].Equals(username))
+                if(message.Split(' ')[2].Equals(username))
                 {
-                    ConversationTextBox.Text += message.Split(' ')[0]+" "+ message.Split(' ')[1] + " " + message.Split(' ')[2] + " | Me ---> " + message.Split(' ')[5] + Environment.NewLine;
+                    ConversationTextBox.Text += message.Split(' ')[0]+" "+ message.Split(' ')[1] + " | Me ---> " + message.Split(' ')[4] + Environment.NewLine;
                 }
                 else
                 {
-                    ConversationTextBox.Text += message.Split(' ')[0] + " " + message.Split(' ')[1] + " " + message.Split(' ')[2] + " | "+ message.Split(' ')[3] + " ---> " + message.Split(' ')[5] + Environment.NewLine;
+                    ConversationTextBox.Text += message.Split(' ')[0] + " " + message.Split(' ')[1] + " | "+ message.Split(' ')[2] + " ---> " + message.Split(' ')[4] + Environment.NewLine;
                 }
             }
         }
@@ -192,7 +192,7 @@ namespace Client
             cliToSvr.SendMessage(username, friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0], SendMessageTextBox.Text);
             //admin1 - offline
             DateTime thisDay = DateTime.Now;
-            ConversationTextBox.Text += thisDay.ToString() + " | Me ---> " + SendMessageTextBox.Text + Environment.NewLine;
+            ConversationTextBox.Text += thisDay.ToString("dd/MM/yy H:mm:ss") + " | Me ---> " + SendMessageTextBox.Text + Environment.NewLine;
             SendMessageTextBox.Text = string.Empty;
         }
 

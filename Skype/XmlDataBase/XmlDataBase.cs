@@ -29,7 +29,7 @@ namespace Interogare
             XElement xDoc = XElement.Load("DB.xml");
             IEnumerable<XElement> address =
                 from el in xDoc.Elements("users").Elements("user")
-                where (string)el.Attribute("username") == username 
+                where (string)el.Attribute("username") == username
                 select el;
             foreach (XElement el in address)
                 count++;
@@ -123,7 +123,7 @@ namespace Interogare
                    new XElement("parola", parola),
                    new XElement("nume", nume),
                    new XElement("email", email)
-                    //And so on ...
+                //And so on ...
                 );
 
                 var myNewElement2 = new XElement(username);
@@ -151,7 +151,7 @@ namespace Interogare
                select el;
             foreach (XElement el in address)
                 count++;
-          
+
             if (xDoc == null)
                 //Console.WriteLine("S-a produs o eroare la incarcarea xml-ului");
                 return 0;
@@ -213,11 +213,11 @@ namespace Interogare
             return friends;
         }
 
-        public List<string> FindUsers(string query,string username)
+        public List<string> FindUsers(string query, string username)
         {
             List<string> Users = new List<string>();
             List<string> users = new List<string>();
-            int f=0;
+            int f = 0;
             XElement xDoc = XElement.Load("DB.xml");
             List<string> friends = GetFriends(username);
 
@@ -236,7 +236,7 @@ namespace Interogare
                 if (el.Contains(query))
                 {
                     f = 0;
-                    foreach(string u in friends)
+                    foreach (string u in friends)
                     {
                         if (u == el)
                         {
@@ -247,7 +247,7 @@ namespace Interogare
                     if (f != 1)
                     {
                         Users.Add(el);
-                        
+
                     }
                 }
             }
@@ -271,7 +271,7 @@ namespace Interogare
             {
                 user.Clear();
                 user.Add(el);
-                
+
                 IEnumerable<XElement> address =
                     from elm in xDoc.Elements("users").Elements("user")
                     where (string)elm.Attribute("username") == el
@@ -303,14 +303,14 @@ namespace Interogare
                 select el;
             foreach (XElement el in address)
                 count++;
-            if(count == 0)
+            if (count == 0)
             {
                 DateTime thisDay = DateTime.Now;
                 var myNewElement = new XElement("message",
                     new XAttribute("sender", sender),
                     new XAttribute("receiver", receiver),
                     new XElement("text",
-                    new XAttribute("created", thisDay.ToString()), message)
+                    new XAttribute("created", thisDay.ToString("dd/MM/yy H:mm:ss")), message)
                     );
 
                 xDoc.Element("messages").Add(myNewElement);
@@ -318,13 +318,13 @@ namespace Interogare
             }
             else
             {
-                DateTime thisDay = DateTime.Today;
+                DateTime thisDay = DateTime.Now;
                 var myNewElement = new XElement("text",
-                    new XAttribute("created", thisDay.ToString()), message);
+                    new XAttribute("created", thisDay.ToString("dd/MM/yy H:mm:ss")), message);
 
                 foreach (XElement el in address)
                 {
-                    xDoc.Element("messages").Element("message").Add(myNewElement);
+                    el.Add(myNewElement);
                     xDoc.Save("DB.xml");
                 }
             }
@@ -334,19 +334,28 @@ namespace Interogare
         public string[] AllMessages(string user1, string user2)
         {
             List<string> Message = new List<String>();
-
+            IEnumerable<XElement> textMessages = null;
             XElement xDoc = XElement.Load("DB.xml");
 
             IEnumerable<XElement> address =
                 from el in xDoc.Elements("messages").Elements("message")
                 where ((string)el.Attribute("sender") == user1 & (string)el.Attribute("receiver") == user2) ||
-                        ((string)el.Attribute("sender") == user2 & (string)el.Attribute("receiver") == user1) 
+                        ((string)el.Attribute("sender") == user2 & (string)el.Attribute("receiver") == user1)
                 select el;
 
-            int count = 0, i = 0 ;
-            foreach (XElement el in address)
+
+            int count = 0, i = 0;
+
+            foreach (XElement elm in address)
             {
-                count++;
+                textMessages =
+                from mes in elm.Elements("text")
+                select mes;
+                foreach (XElement ms in textMessages)
+                {
+                    count++;
+                }
+
             }
 
             string[] Messages = new string[count];
@@ -357,18 +366,25 @@ namespace Interogare
 
             foreach (XElement el in address)
             {
-                Message.Clear();
-                Message.Add((string)el.Element("text").Attribute("created"));
-                Message.Add((string)el.Attribute("sender"));
-                Message.Add((string)el.Attribute("receiver"));
-                Message.Add((string)el.Element("text"));
+                textMessages =
+                from mes in el.Elements("text")
+                select mes;
+                foreach (XElement ms in textMessages)
+                {
+                    Message.Clear();
+                    Message.Add((string)ms.Attribute("created"));
+                    Message.Add((string)el.Attribute("sender"));
+                    Message.Add((string)el.Attribute("receiver"));
+                    Message.Add((string)ms);
+                    Messages[i] = (Message.ElementAt(0) + " " + Message.ElementAt(1) + " " + Message.ElementAt(2) + " " + Message.ElementAt(3)).ToString();
+                    i++;
+                }
 
-                Messages[i] = (Message.ElementAt(0) + " " + Message.ElementAt(1) + " " + Message.ElementAt(2) + " " + Message.ElementAt(3)).ToString();
-                i++;
+                
+
             }
-
+           
             Array.Sort(Messages);
-
             return Messages;
         }
     }
