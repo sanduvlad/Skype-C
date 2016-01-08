@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Client
 {
-    class ServerToClientHandle : ServerToClientCOM.I_In_COM
+    class ServerToClientHandle : ServerToClientCOM.IInCom
     {
         private Application app;
 

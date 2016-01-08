@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ServerToClientCOM
 {
+    /// <summary>
+    /// Structura ce contine tipurile posibile de stari
+    /// </summary>
     public enum AvailableState
     {
         Available,
@@ -14,7 +17,10 @@ namespace ServerToClientCOM
         Invisible
     };
 
-    public interface I_In_COM
+    /// <summary>
+    /// Descrierea interfetei
+    /// </summary>
+    public interface IInCom
     {
         void UpdateFriendList(List<string> friendsList);
         void SearchUserList(List<string> searchByList);
