@@ -23,7 +23,7 @@ namespace ClientToServerCOM
         List<string> SearchUsers(string query, string username);
         string[] GetFriends(string username);
         void AddFriend(string userName,string friend);
-
+        string[] GetMessages(string username, string receiver);
         void SendMessage(string fromUserName, string toUserName, string message);
     }
 }

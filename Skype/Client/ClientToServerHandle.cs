@@ -53,6 +53,11 @@ namespace Client
             remoteServerOBJ.SendMessage(fromUserName, toUserName, message);
         }
 
+        public string[] GetMessages(string username, string receiver)
+        {
+            return remoteServerOBJ.GetMessages(username, receiver);
+        }
+
         public int SignIn(string userName, string password)
         {
             //TCP - Initialize client object proxy

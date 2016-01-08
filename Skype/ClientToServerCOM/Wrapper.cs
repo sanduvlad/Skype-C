@@ -62,6 +62,11 @@ namespace ClientToServerCOM
             return comToServer.SearchUsers(query, username);
         }
 
+        public string[] GetMessages(string username, string receiver)
+        {
+            return comToServer.GetMessages(username, receiver);
+        }
+
 
         public void Attach(I_Out_COM ComServer)
         {

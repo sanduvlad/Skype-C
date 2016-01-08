@@ -358,9 +358,9 @@ namespace Interogare
             foreach (XElement el in address)
             {
                 Message.Clear();
-                Message.Add((string)el.Attribute("created"));
-                Message.Add((string)el.Element("text").Attribute("sender"));
-                Message.Add((string)el.Element("text").Attribute("receiver"));
+                Message.Add((string)el.Element("text").Attribute("created"));
+                Message.Add((string)el.Attribute("sender"));
+                Message.Add((string)el.Attribute("receiver"));
                 Message.Add((string)el.Element("text"));
 
                 Messages[i] = (Message.ElementAt(0) + " " + Message.ElementAt(1) + " " + Message.ElementAt(2) + " " + Message.ElementAt(3)).ToString();

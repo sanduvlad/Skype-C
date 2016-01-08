@@ -88,6 +88,11 @@ namespace Server
             return 1;
         }
 
+        public string[] GetMessages(string username, string receiver)
+        {
+            return db.AllMessages(username, receiver);
+        }
+
 
         public void SendMessage(string fromUserName, string toUserName, string message)
         {

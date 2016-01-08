@@ -95,8 +95,26 @@ namespace Client
 
         }
 
+        private void DisplayConversation(string receiver)
+        {
+            string[] allmessages = cliToSvr.GetMessages(username, receiver);
+            ConversationTextBox.Text= string.Empty;
+            foreach (string message in allmessages)
+            {
+                if(message[1].Equals(username))
+                {
+                    ConversationTextBox.Text += message.Split(' ')[0]+" "+ message.Split(' ')[1] + " " + message.Split(' ')[2] + " | Me ---> " + message.Split(' ')[5] + Environment.NewLine;
+                }
+                else
+                {
+                    ConversationTextBox.Text += message.Split(' ')[0] + " " + message.Split(' ')[1] + " " + message.Split(' ')[2] + " | "+ message.Split(' ')[3] + " ---> " + message.Split(' ')[5] + Environment.NewLine;
+                }
+            }
+        }
+
         private void friendsList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
 
         }
 
@@ -132,7 +150,6 @@ namespace Client
         {
             friendsList.DataSource = null;
             friendsList.Items.Clear();
-            var choices = new Dictionary<string, string>();
             string[] friends = cliToSvr.GetFriends(username);
             foreach (string user in friends)
             {
@@ -145,19 +162,14 @@ namespace Client
                     break;
                 }
             }
-            if (choices.Count == 0)
+           if(friends.Length>0)
             {
-                choices.Add("", "");
+                if (friendsList.SelectedIndex < 0)
+                {
+                    friendsList.SelectedIndex = 0;
+                }
+                DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
             }
-
-            //friendsList.Items.Add("qweqeq");
-
-            //friendsList.DataSource = new BindingSource(friendchoices, null);
-            //friendsList.DisplayMember = "Value";
-            //friendsList.ValueMember = "Key";
-            //friendsList.Refresh();
-            //friendchoices.Clear();
-
         }
 
         private void addFriendsList_SelectedIndexChanged(object sender, EventArgs e)
@@ -178,14 +190,16 @@ namespace Client
             }
 
             cliToSvr.SendMessage(username, friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0], SendMessageTextBox.Text);
-                //admin1 - offline
-            ConversationTextBox.Text += "Me: " + SendMessageTextBox.Text + Environment.NewLine;
+            //admin1 - offline
+            DateTime thisDay = DateTime.Now;
+            ConversationTextBox.Text += thisDay.ToString() + " | Me ---> " + SendMessageTextBox.Text + Environment.NewLine;
             SendMessageTextBox.Text = string.Empty;
         }
 
         public void DisplayMessageOnScreen(string message)
         {
-            Invoke((MethodInvoker)(() => ConversationTextBox.Text += message + Environment.NewLine));
+            //Invoke((MethodInvoker)(() => ConversationTextBox.Text += message + Environment.NewLine));
+            DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
         }
     }
 }

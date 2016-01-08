@@ -51,5 +51,9 @@ namespace ClientToServerCOM
             Wrapper.GetInstance().SendMessage(fromUserName, toUserName, message);
         }
 
+        public string[] GetMessages(string username,string receiver)
+        {
+            return Wrapper.GetInstance().GetMessages(username, receiver);
+        }
     }
 }
