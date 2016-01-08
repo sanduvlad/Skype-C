@@ -245,11 +245,10 @@ namespace Interogare
 
         public string[] AllFriendsDetails(List<string> friends)
         {
-            List<List<string>> Details = new List<List<String>>();
-            string[] detalii = new string[friends.Count];
+            string[] Details = new string[friends.Count];
             for (int j = 0; j < friends.Count; j++)
             {
-                detalii[j] = string.Empty;
+                Details[j] = string.Empty;
             }
             //username status
             //username2 status2
@@ -272,12 +271,10 @@ namespace Interogare
                     //user.Add((string)elm.Attribute("username"));
                     user.Add((string)elm.Attribute("status"));
                 }
-
-                Details.Add(user);
-                detalii[i] = (user.ElementAt(0) + " " + user.ElementAt(1)).ToString();
+                Details[i] = (user.ElementAt(0) + " " + user.ElementAt(1)).ToString();
                 i++;
             }
-            return detalii;
+            return Details;
         }
 
         public int AddMessage(string sender, string receiver, string message)
@@ -323,9 +320,8 @@ namespace Interogare
             return 1;
         }
 
-        public List<List<string>> AllMessages(string user1, string user2)
+        public string[] AllMessages(string user1, string user2)
         {
-            List<List<string>> Messages = new List<List<String>>();
             List<string> Message = new List<String>();
 
             XElement xDoc = XElement.Load("DB.xml");
@@ -336,6 +332,14 @@ namespace Interogare
                         ((string)el.Attribute("sender") == user2 & (string)el.Attribute("receiver") == user1) 
                 select el;
 
+            int count = 0, i = 0 ;
+            foreach (XElement el in address)
+            {
+                count++;
+            }
+
+            string[] Messages = new string[count];
+
             foreach (XElement el in address)
             {
                 Message.Clear();
@@ -343,7 +347,9 @@ namespace Interogare
                 Message.Add((string)el.Element("text").Attribute("sender"));
                 Message.Add((string)el.Element("text").Attribute("receiver"));
                 Message.Add((string)el.Element("text"));
-                Messages.Add(Message);
+
+                Messages[i] = (Message.ElementAt(0) + " " + Message.ElementAt(1) + " " + Message.ElementAt(2) + " " + Message.ElementAt(3)).ToString();
+                i++;
             }
 
             //sort Messages dupa data adica created
