@@ -26,7 +26,6 @@ namespace OleDataBase
                 {
                     connection.Open();
                     command.ExecuteReader();
-                    command = new OleDbCommand(queryString, connection);
                     connection.Close();
                     //Console.WriteLine("Inregistrare reusita");
                     return 1;
@@ -56,7 +55,6 @@ namespace OleDataBase
                 {
                     connection.Open();
                     command.ExecuteReader();
-                    command = new OleDbCommand(queryString, connection);
                     connection.Close();
                     //Console.WriteLine("Schimbare de status reusita!");
                     return 1;
@@ -113,5 +111,87 @@ namespace OleDataBase
             }
         }
 
+        public int AddMessage(string sender, string receiver, string message)
+        {
+            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source = DB.mdb;";
+            string queryString =
+                        "INSERT INTO Messages(sender, receiver, message) " +
+                        "VALUES ('" + sender + "', '" + receiver + "', '" + message + "');";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                OleDbCommand command = new OleDbCommand(queryString, connection);
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteReader();
+                    connection.Close();
+                    //Console.WriteLine("Mesaj adaugat!");
+                    return 1;
+                }
+                catch (Exception ex)
+                {
+                    //Console.WriteLine("Operatiune nereusita!");
+                    Console.WriteLine(ex.Message);
+                    return 0;
+                }
+            }
+        }
+
+        public string[] AllMessages(string sender, string receiver)
+        {
+            string[] messages = null;
+            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source = DB.mdb;";
+            string queryString =
+                    "SELECT time, sender, receiver, message from Messages " +
+                    "WHERE sender = '" + sender + "' AND receiver = '" + receiver + "'" +
+                    "ORDER BY time ASC;";
+            string queryStringCount =
+                    "SELECT COUNT(*) from Messages " +
+                    "WHERE sender = '" + sender + "' AND receiver = '" + receiver + "';";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                OleDbCommand command = new OleDbCommand(queryStringCount, connection);
+
+                try
+                {
+                    connection.Open();
+                    OleDbDataReader reader = command.ExecuteReader();
+                    reader.Read();
+                    int count = (int)reader[0];
+                    messages = new string[count];
+                    for (int i=0; i < count; i++) 
+                    {
+                        messages[i] = string.Empty;
+                    }
+                    reader.Close(); 
+
+                    command = new OleDbCommand(queryString, connection);
+                    reader = command.ExecuteReader();
+
+                    int j = 0;
+                    while (reader.Read())
+                    {
+                        messages[j] = reader[0] + " " + reader[1] + " " + reader[2] + " " + reader[3];
+                        j++;
+                    }
+                    reader.Close();
+                    connection.Close();
+                    return messages;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return messages;
+                }
+            }
+        }
+        
+        public int AddFriend(string username, string friendName)
+        {
+            return 0;
+        }
     }
 }
