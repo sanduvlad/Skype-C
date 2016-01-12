@@ -15,8 +15,8 @@ namespace OleDataBase
         {
             string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source = DB.mdb;";
             string queryString =
-                            "INSERT INTO Users " +
-                            "VALUES ('" + username + "', '" + name + "', '" + password + "', '" + email + "', 'offline');";
+                        "INSERT INTO Users " +
+                        "VALUES ('" + username + "', '" + name + "', '" + password + "', '" + email + "', 'offline' ,'');";
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
@@ -65,7 +65,6 @@ namespace OleDataBase
                     //Console.WriteLine("Schimbare de status nereusita!");
                     return 0;
                 }
-
             }
         }
 
@@ -191,7 +190,93 @@ namespace OleDataBase
         
         public int AddFriend(string username, string friendName)
         {
-            return 0;
+            string friends = null;
+
+            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source = DB.mdb;";
+
+            string queryStringFriends =
+                        "SELECT friends from Users " +
+                        "WHERE username = '" + username + "';";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                OleDbCommand command = new OleDbCommand(queryStringFriends, connection);
+
+                try
+                {
+                    connection.Open();
+                    OleDbDataReader reader = command.ExecuteReader();
+                    reader.Read();
+                    friends = (string)reader[0];
+
+                    if (friends.IndexOf(friendName) == -1)
+                    {
+                        friends += " " + friendName;
+                        reader.Close();
+                        string queryStringUpdate =
+                                    "UPDATE Users SET friends = '" + friends + "' " +
+                                    "WHERE username = '" + username + "';";
+                        command = new OleDbCommand(queryStringUpdate, connection);
+                        reader = command.ExecuteReader();
+                        reader.Close();
+                    }
+                    connection.Close();
+                    return 1;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    //Console.WriteLine("Add friend nereusita");
+                    return 0;
+                }
+            }
         }
+
+        public string[] GetAllFriends(string username)
+        {
+            string friends_aux = "";
+            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source = DB.mdb;";
+
+            string queryStringFriends =
+                        "SELECT friends from Users " +
+                        "WHERE username = '" + username + "';";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                OleDbCommand command = new OleDbCommand(queryStringFriends, connection);
+
+                try
+                {
+                    connection.Open();
+                    OleDbDataReader reader = command.ExecuteReader();
+                    reader.Read();
+                    friends_aux = reader[0].ToString();
+                    int count = 0;
+                    foreach (char c in friends_aux)
+                    {
+                        if (c == ' ')
+                            count++;
+                    }
+                    string[] friends = new string[count + 1];
+
+                    for (int i = 0; i <= count; i++)
+                    {
+                        friends[i] = reader[0].ToString().Split(' ')[i];
+                    }
+
+                    reader.Close();
+                    connection.Close();
+
+                    return friends;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    //Console.WriteLine("Add friend nereusita");
+                    return friends_aux;
+                }
+            }
+        }
+
     }
 }
