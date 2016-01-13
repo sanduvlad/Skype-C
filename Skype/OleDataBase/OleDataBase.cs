@@ -278,5 +278,35 @@ namespace OleDataBase
             }
         }
 
+        public string GetStatus(string username)
+        {
+            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source = DB.mdb;";
+
+            string queryString =
+                    "SELECT status from Users " +
+                    "WHERE username = '" + username + "';";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                OleDbCommand command = new OleDbCommand(queryString, connection);
+
+                try
+                {
+                    connection.Open();
+                    OleDbDataReader reader = command.ExecuteReader();
+                    reader.Read();
+                    connection.Close();
+                    //Console.WriteLine("Schimbare de status reusita!");
+                    return reader[0].ToString();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    //Console.WriteLine("Schimbare de status nereusita!");
+                    return ex.ToString();
+                }
+            }
+        }
+
     }
 }
