@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
+using System.ServiceModel;
 
 namespace Server
 {
@@ -25,23 +26,26 @@ namespace Server
             
             //TCP - Initilize server object proxy
             //**********************
-            TcpChannel channel = new TcpChannel(8080);
-            ChannelServices.RegisterChannel(channel, false);
-            RemotingConfiguration.RegisterWellKnownServiceType
-                (
-                typeof(ClientToServerCOM.RemotableObject),
-                "ClientToServer", WellKnownObjectMode.Singleton
-                );
+            //TcpChannel channel = new TcpChannel(8080);
+            //ChannelServices.RegisterChannel(channel, false);
+            //RemotingConfiguration.RegisterWellKnownServiceType
+            //    (
+            //    typeof(ClientToServerCOM.RemotableObject),
+            //    "ClientToServer", WellKnownObjectMode.Singleton
+            //    );
 
             cliToSvr = new ClientToServerHandle();
             //svrToCli = new ServerToClientHandle();
-            ClientToServerCOM.Wrapper.GetInstance().Attach(cliToSvr);
+            //ClientToServerCOM.Wrapper.GetInstance().Attach(cliToSvr);
+            ServiceHost host = new ServiceHost(typeof(Server.ClientToServerHandle));
+            host.Open();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             //svrToCli.SendMessage("message", "user2", cliToSvr.getClientURL("user1"));
             //svrToCli.SendMessage("message", "user2", cliToSvr.getClientURL("user2"));
+
             
         }
     }

@@ -273,9 +273,10 @@ namespace OleDataBase
                 {
                     Console.WriteLine(ex.Message);
                     //Console.WriteLine("Add friend nereusita");
-                    return friends_aux;
+                    //return friends_aux;
                 }
             }
+            return (new string[] { "0" });
         }
 
         public string GetStatus(string username)

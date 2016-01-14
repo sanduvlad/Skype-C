@@ -369,7 +369,7 @@ namespace Client
                     }
                 }
             }), parameters);
-
+            Thread.Sleep(1000);
         }
 
         /// <summary>

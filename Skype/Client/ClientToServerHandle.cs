@@ -8,13 +8,15 @@ using System.Threading.Tasks;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
+using System.ServiceModel;
 
 namespace Client
 {
     class ClientToServerHandle
     {
-        private string ipAddresss = string.Empty;
-        private ClientToServerCOM.RemotableObject remoteServerOBJ;
+        //private string ipAddresss = string.Empty;
+        //private ClientToServerCOM.RemotableObject remoteServerOBJ;
+        private ServiceReference1.ClientToServerHandleClient serverHost = new ServiceReference1.ClientToServerHandleClient();
 
 
         /// <summary>
@@ -38,14 +40,17 @@ namespace Client
             TcpChannel channel = new TcpChannel();
             try
             {
-               channel  = new TcpChannel(8081);
-               ChannelServices.RegisterChannel(channel, false);
+                channel = new TcpChannel(8081);
+                ChannelServices.RegisterChannel(channel, false);
             }
             catch { }
+
+            serverHost.Open();
             
 
-            remoteServerOBJ = (ClientToServerCOM.RemotableObject)Activator.GetObject(typeof(ClientToServerCOM.RemotableObject), "tcp://" + "192.168.205.1" + ":8080" + "/ClientToServer");
+            //remoteServerOBJ = (ClientToServerCOM.RemotableObject)Activator.GetObject(typeof(ClientToServerCOM.RemotableObject), "tcp://" + "192.168.205.1" + ":8080" + "/ClientToServer");
             //************
+            
         }
 
         /// <summary>
@@ -56,7 +61,8 @@ namespace Client
 
         public void AddFriend(string userName,string friend)
         {
-            remoteServerOBJ.AddFriend(userName,friend);
+            //remoteServerOBJ.AddFriend(userName,friend);
+            serverHost.AddFriend(userName, friend);
         }
 
 
@@ -67,7 +73,8 @@ namespace Client
         /// <returns></returns>
         public string[] GetFriends(string username)
         {
-            return remoteServerOBJ.GetFriends(username);
+            return //remoteServerOBJ.GetFriends(username);
+                serverHost.GetFriends(username).ToArray();
         }
 
 
@@ -79,7 +86,8 @@ namespace Client
         /// <param name="message">Mesajul trimis</param>
         public void SendMessage(string fromUserName, string toUserName, string message)
         {
-            remoteServerOBJ.SendMessage(fromUserName, toUserName, message);
+            //remoteServerOBJ.SendMessage(fromUserName, toUserName, message);
+            serverHost.SendMessage(fromUserName, toUserName, message);
         }
 
         /// <summary>
@@ -90,7 +98,8 @@ namespace Client
         /// <returns></returns>
         public string[] GetMessages(string username, string receiver)
         {
-            return remoteServerOBJ.GetMessages(username, receiver);
+            return //remoteServerOBJ.GetMessages(username, receiver);
+                serverHost.GetMessages(username, receiver).ToArray();
         }
 
         public int SignIn(string userName, string password)
@@ -111,13 +120,15 @@ namespace Client
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
                     IP_address = ip.ToString();
+                    break;
                 }
             }
-            ipAddresss = IP_address;
+            ///ipAddresss = IP_address;
 
             string clientChannelURL = "tcp://" + IP_address + ":8081" + "/" + userName;
 
-            return remoteServerOBJ.SignIn(userName, password, clientChannelURL);
+            return //remoteServerOBJ.SignIn(userName, password, clientChannelURL);
+                serverHost.SignIn(userName, password, clientChannelURL);
         }
 
 
@@ -128,7 +139,8 @@ namespace Client
         /// <returns></returns>
         public int SignOut(string userName)
         {
-            return remoteServerOBJ.SignOut(userName);
+            return //remoteServerOBJ.SignOut(userName);
+                serverHost.SignOut(userName);
 
         }
 
@@ -139,8 +151,8 @@ namespace Client
         /// <param name="status"> Status</param>
         public void ChangeStatus(string userName,String status)
         {
-            remoteServerOBJ.ChangeStatus(userName, status);
-
+            //remoteServerOBJ.ChangeStatus(userName, status);
+            serverHost.ChangeStatus(userName, status);
         }
 
         /// <summary>
@@ -153,8 +165,8 @@ namespace Client
         /// <returns></returns>
         public int Register(string userName, string password, string email, string nume)
         {
-            return remoteServerOBJ.Register(userName, password, email,nume);
-
+            return //remoteServerOBJ.Register(userName, password, email,nume);
+                serverHost.Register(userName, password, email, nume);
         }
 
 
@@ -166,7 +178,8 @@ namespace Client
         /// <returns></returns>
         public List<string> SearchUsers(string query,string username)
         {
-            return remoteServerOBJ.SearchUsers(query, username);
+            return //remoteServerOBJ.SearchUsers(query, username);
+                serverHost.SearchUsers(query, username);
         }
     }
 }

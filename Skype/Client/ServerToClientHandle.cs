@@ -25,7 +25,11 @@ namespace Client
         public void MessageReceived(string message, string userName)
         {
             //Invoke((MethodInvoker)(() => lblName.Text = "Meep"));
-            app.DisplayMessageOnScreen(message, userName);
+            (new Thread(() =>
+            {
+                app.DisplayMessageOnScreen(message, userName);
+            })).Start();
+            return;
         }
 
         /// <summary>
@@ -52,8 +56,12 @@ namespace Client
         /// <param name="state"></param>
         public void SetUserStatus(string userName, string state)
         {
-            app.UserChangedStatus(userName, state);
-
+            (new Thread(() =>
+            {
+                app.UserChangedStatus(userName, state);
+                //Thread.Sleep(1000);
+            })).Start();
+            return;
         }
     }
 }

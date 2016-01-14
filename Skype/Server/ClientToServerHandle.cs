@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.ServiceModel;
 
 using Interogare;
 namespace Server
 {
-    class ClientToServerHandle : ClientToServerCOM.IOutCom
+    class ClientToServerHandle : IClientToServerHandle
     {
-        private Dictionary<string, string> Clients = new Dictionary<string, string>();
+        //private Dictionary<string, string> Clients = new Dictionary<string, string>();
         // userName, channelURL //
         private XmlDataBase db = new XmlDataBase();
 
@@ -21,8 +22,8 @@ namespace Server
         /// <returns></returns>
         public string getClientURL(string userName)
         {
-            if (Clients.ContainsKey(userName))
-                return Clients[userName];
+            if (UsersConnected.Clients.ContainsKey(userName))
+                return UsersConnected.Clients[userName];
             else
                 return "0";
         }
@@ -32,7 +33,7 @@ namespace Server
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="friend"></param>
-        public void AddFriend(string userName,string friend)
+        public void AddFriend(string userName, string friend)
         {
             db.AddFriend(userName, friend);
         }
@@ -57,10 +58,11 @@ namespace Server
         /// <returns></returns>
         public int Register(string userName, string password, string email, string nume)
         {
-            if(db.Register(userName,password,password,nume,email)==1)
+            if (db.Register(userName, password, password, nume, email) == 1)
             {
                 return 1;
-            }else
+            }
+            else
             {
                 return 0;
             }
@@ -75,10 +77,10 @@ namespace Server
         /// <returns></returns>
         public int SignIn(string userName, string password, string channelURL)
         {
-            if (Clients.ContainsKey(userName))
+            if (UsersConnected.Clients.ContainsKey(userName))
                 if (db.LogIn(userName, password) == 1)
                 {
-                   // Clients.Add(userName, channelURL);
+                    // Clients.Add(userName, channelURL);
                     return 1;
                 }
                 else
@@ -87,14 +89,14 @@ namespace Server
             {
                 if (db.LogIn(userName, password) == 1)
                 {
-                    Clients.Add(userName, channelURL);
+                    UsersConnected.Clients.Add(userName, channelURL);
                     return 1;
                 }
                 else
                     return 0;
-               
+
             }
-            
+
         }
 
         /// <summary>
@@ -118,7 +120,7 @@ namespace Server
             db.ChangeStatus(userName, status);
 
             //ServerToClientHandle.SetUserStatus(getClientURL(userName), userName, status);
-            foreach (KeyValuePair<string, string> pair in Clients)
+            foreach (KeyValuePair<string, string> pair in UsersConnected.Clients)
             {
                 if (pair.Key != userName)
                 {
@@ -135,7 +137,7 @@ namespace Server
         public int SignOut(string userName)
         {
             db.LogOut(userName);
-            Clients.Remove(userName);
+            UsersConnected.Clients.Remove(userName);
             return 1;
         }
 
