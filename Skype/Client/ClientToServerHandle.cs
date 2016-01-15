@@ -45,9 +45,10 @@ namespace Client
                 ChannelServices.RegisterChannel(channel, false);
             }
             catch { }
-
-            serverHost.Open();
-            
+            if (serverHost.State != CommunicationState.Opened)
+            {
+                serverHost.Open();
+            }
 
             //remoteServerOBJ = (ClientToServerCOM.RemotableObject)Activator.GetObject(typeof(ClientToServerCOM.RemotableObject), "tcp://" + "192.168.205.1" + ":8080" + "/ClientToServer");
             //************

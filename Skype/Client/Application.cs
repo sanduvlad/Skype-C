@@ -253,28 +253,32 @@ namespace Client
             }
             friendsList.Items.Clear();
             string[] friends = cliToSvr.GetFriends(username);
-            foreach (string user in friends)
+            string felment = friends[0];
+            if (felment != null&& felment!="0")
             {
-                try
+                foreach (string user in friends)
                 {
-                    friendsList.Items.Add(user.Split(' ')[0] + " - " + user.Split(' ')[1]);
+                        try
+                        {
+                            friendsList.Items.Add(user.Split(' ')[0] + " - " + user.Split(' ')[1]);
+                        }
+                        catch (ArgumentOutOfRangeException)
+                        {
+                            break;
+                        }
                 }
-                catch (ArgumentOutOfRangeException)
+                if (friends.Length > 0 && selectedIndex < 0)
                 {
-                    break;
+                    if (friendsList.SelectedIndex < 0)
+                    {
+                        friendsList.SelectedIndex = 0;
+                    }
+                    DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
                 }
-            }
-            if (friends.Length > 0 && selectedIndex < 0)
-            {
-                if (friendsList.SelectedIndex < 0)
+                if (friends.Length > 0)
                 {
-                    friendsList.SelectedIndex = 0;
+                    friendsList.SelectedIndex = selectedIndex;
                 }
-                DisplayConversation(friendsList.Items[friendsList.SelectedIndex].ToString().Split(' ')[0]);
-            }
-            if (friends.Length > 0)
-            {
-                friendsList.SelectedIndex = selectedIndex;
             }
         }
 

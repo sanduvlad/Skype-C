@@ -87,7 +87,7 @@ namespace OleDB
             string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source = DB.mdb;";
 
             string queryString =
-                "SELECT COUNT(username) from Users " +
+                "SELECT username from Users " +
                 "WHERE username = '" + username + "' AND parola = '" + parola + "';";
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
@@ -99,7 +99,7 @@ namespace OleDB
                     connection.Open();
                     OleDbDataReader reader = command.ExecuteReader();
                     reader.Read();
-                    if (reader[0].ToString() == "1")
+                    if (reader.HasRows)
                     {
                         //Console.WriteLine("Autentificare reusita!");
                         ChangeStatus(username, "online");
@@ -268,14 +268,13 @@ namespace OleDB
                     reader.Read();
                     friends_aux = reader[0].ToString();
                     int count = 0;
-                    foreach (char c in friends_aux)
+                    if(friends_aux.Length>0)
                     {
-                        if (c == ' ')
-                            count++;
+                        count = friends_aux.Split(' ').Length;
                     }
-                    string[] friends = new string[count + 1];
+                    string[] friends = new string[count];
 
-                    for (int i = 0; i <= count; i++)
+                    for (int i = 0; i < count; i++)
                     {
 
                         string fusername = reader[0].ToString().Split(' ')[i];
@@ -321,13 +320,12 @@ namespace OleDB
                     reader.Read();
                     friends_aux = reader[0].ToString();
                     int count = 0;
-                    foreach (char c in friends_aux)
+                    if (friends_aux.Length > 0)
                     {
-                        if (c == ' ')
-                            count++;
+                        count = friends_aux.Split(' ').Length;
                     }
 
-                    for (int i = 0; i <= count; i++)
+                    for (int i = 0; i < count; i++)
                     {
                         friends.Add(reader[0].ToString().Split(' ')[i]);
                     }
@@ -336,11 +334,10 @@ namespace OleDB
                     string queryString = "SELECT username from Users " +
                         "WHERE 1;";
                     command = new OleDbCommand(queryString, connection);
-                    OleDbDataReader reader2 = command.ExecuteReader();
-                    reader2 = command.ExecuteReader();
-                    while (reader2.Read())
+                    reader = command.ExecuteReader();
+                    while (reader.Read())
                     {
-                        string el = (string)reader2[0];
+                        string el = reader[0].ToString();
                         if (el.Contains(query))
                         {
                             f = 0;
@@ -360,8 +357,7 @@ namespace OleDB
                         }
                     }
 
-
-                    reader2.Close();
+                    
                     reader.Close();
                     connection.Close();
 
@@ -395,9 +391,16 @@ namespace OleDB
                     connection.Open();
                     OleDbDataReader reader = command.ExecuteReader();
                     reader.Read();
-                    connection.Close();
                     //Console.WriteLine("Schimbare de status reusita!");
-                    return reader[0].ToString();
+                    string status = "offline";
+                 
+                    if (reader.HasRows)
+                    {
+                        status = reader[0].ToString();
+                    
+                    }
+                    connection.Close();
+                    return status;
                 }
                 catch (Exception ex)
                 {
