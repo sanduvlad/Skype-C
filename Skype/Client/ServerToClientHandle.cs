@@ -25,10 +25,7 @@ namespace Client
         public void MessageReceived(string message, string userName)
         {
             //Invoke((MethodInvoker)(() => lblName.Text = "Meep"));
-            (new Thread(() =>
-            {
                 app.DisplayMessageOnScreen(message, userName);
-            })).Start();
             return;
         }
 

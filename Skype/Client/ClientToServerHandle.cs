@@ -9,6 +9,7 @@ using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.ServiceModel;
+using System.Threading;
 
 namespace Client
 {
@@ -59,10 +60,10 @@ namespace Client
         /// <param name="username"> Username</param>
         /// <param name="friend"> Username al prietenului adaugat</param>
 
-        public void AddFriend(string userName,string friend)
+        public void AddFriend(string userName, string friend)
         {
             //remoteServerOBJ.AddFriend(userName,friend);
-            serverHost.AddFriend(userName, friend);
+                    serverHost.AddFriend(userName, friend);
         }
 
 
@@ -87,7 +88,7 @@ namespace Client
         public void SendMessage(string fromUserName, string toUserName, string message)
         {
             //remoteServerOBJ.SendMessage(fromUserName, toUserName, message);
-            serverHost.SendMessage(fromUserName, toUserName, message);
+                serverHost.SendMessage(fromUserName, toUserName, message);
         }
 
         /// <summary>
@@ -152,7 +153,7 @@ namespace Client
         public void ChangeStatus(string userName,String status)
         {
             //remoteServerOBJ.ChangeStatus(userName, status);
-            serverHost.ChangeStatus(userName, status);
+                serverHost.ChangeStatus(userName, status);
         }
 
         /// <summary>

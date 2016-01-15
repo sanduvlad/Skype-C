@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.ServiceModel;
 
 using Interogare;
+using System.Threading;
 namespace Server
 {
     class ClientToServerHandle : IClientToServerHandle
@@ -118,15 +119,18 @@ namespace Server
         public void ChangeStatus(string userName, String status)
         {
             db.ChangeStatus(userName, status);
-
-            //ServerToClientHandle.SetUserStatus(getClientURL(userName), userName, status);
-            foreach (KeyValuePair<string, string> pair in UsersConnected.Clients)
+            (new Thread(() =>
             {
-                if (pair.Key != userName)
+                //ServerToClientHandle.SetUserStatus(getClientURL(userName), userName, status);
+                foreach (KeyValuePair<string, string> pair in UsersConnected.Clients)
                 {
-                    ServerToClientHandle.SetUserStatus(pair.Value, userName, status);
+                    if (pair.Key != userName)
+                    {
+                        ServerToClientHandle.SetUserStatus(pair.Value, userName, status);
+                    }
                 }
-            }
+            })).Start();
+            return;
         }
 
         /// <summary>
@@ -162,7 +166,10 @@ namespace Server
         {
             //server
             db.AddMessage(fromUserName, toUserName, message);
-            ServerToClientHandle.SendMessage(message, fromUserName, getClientURL(toUserName));
+            (new Thread(() =>
+            {
+                ServerToClientHandle.SendMessage(message, fromUserName, getClientURL(toUserName));
+            })).Start();
         }
     }
 }

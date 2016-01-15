@@ -13,7 +13,7 @@ namespace Client.ServiceReference1 {
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IClientToServerHandle")]
-    internal interface IClientToServerHandle {
+    public interface IClientToServerHandle {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientToServerHandle/SignIn", ReplyAction="http://tempuri.org/IClientToServerHandle/SignInResponse")]
         int SignIn(string username, string password, string channelURL);
@@ -71,12 +71,12 @@ namespace Client.ServiceReference1 {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    internal interface IClientToServerHandleChannel : Client.ServiceReference1.IClientToServerHandle, System.ServiceModel.IClientChannel {
+    public interface IClientToServerHandleChannel : Client.ServiceReference1.IClientToServerHandle, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    internal partial class ClientToServerHandleClient : System.ServiceModel.ClientBase<Client.ServiceReference1.IClientToServerHandle>, Client.ServiceReference1.IClientToServerHandle {
+    public partial class ClientToServerHandleClient : System.ServiceModel.ClientBase<Client.ServiceReference1.IClientToServerHandle>, Client.ServiceReference1.IClientToServerHandle {
         
         public ClientToServerHandleClient() {
         }
