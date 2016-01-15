@@ -99,6 +99,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OleDataBase\OleDataBase.csproj">
+      <Project>{4bf3f361-2810-4e04-a13f-24f368993644}</Project>
+      <Name>OleDataBase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XmlDataBase\XmlDataBase.csproj">
       <Project>{8d341df9-9b21-4904-bab3-aae2a916c381}</Project>
       <Name>XmlDataBase</Name>
