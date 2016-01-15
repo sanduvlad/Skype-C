@@ -7,11 +7,11 @@ using System.Data.OleDb;
 
 //https://msdn.microsoft.com/en-us/library/dw70f090(v=vs.110).aspx
 
-namespace OleDataBase
+namespace OleDB
 {
     public class OleDataBase
     {
-        public int Register(string username, string name, string password, string email)
+        public int Register(string username, string name, string password, string reParola, string email)
         {
             string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source = DB.mdb;";
             string queryString =
@@ -33,11 +33,25 @@ namespace OleDataBase
                 catch (Exception ex)
                 {
                     //Console.WriteLine("Inregistrare nereusita");
-                    Console.WriteLine(ex.Message); 
+                    Console.WriteLine(ex.Message);
                     return 0;
                 }
             }
         }
+
+
+        /// <summary>
+        /// Functie ce delogheaza un user si schimba starea acestuia in oflline
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public int LogOut(string username)
+        {
+            //Console.WriteLine("Delogare reusita!");
+            ChangeStatus(username, "offline");
+            return 1;
+        }
+
 
         public int ChangeStatus(string username, string status)
         {
@@ -161,11 +175,11 @@ namespace OleDataBase
                     reader.Read();
                     int count = (int)reader[0];
                     messages = new string[count];
-                    for (int i=0; i < count; i++) 
+                    for (int i = 0; i < count; i++)
                     {
                         messages[i] = string.Empty;
                     }
-                    reader.Close(); 
+                    reader.Close();
 
                     command = new OleDbCommand(queryString, connection);
                     reader = command.ExecuteReader();
@@ -187,7 +201,7 @@ namespace OleDataBase
                 }
             }
         }
-        
+
         public int AddFriend(string username, string friendName)
         {
             string friends = null;
@@ -232,8 +246,10 @@ namespace OleDataBase
             }
         }
 
-        public string[] GetAllFriends(string username)
+        public string[] AllFriends(string username)
         {
+
+
             string friends_aux = "";
             string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source = DB.mdb;";
 
@@ -261,7 +277,9 @@ namespace OleDataBase
 
                     for (int i = 0; i <= count; i++)
                     {
-                        friends[i] = reader[0].ToString().Split(' ')[i];
+
+                        string fusername = reader[0].ToString().Split(' ')[i];
+                        friends[i] = fusername + " " + GetStatus(fusername);
                     }
 
                     reader.Close();
@@ -277,6 +295,87 @@ namespace OleDataBase
                 }
             }
             return (new string[] { "0" });
+        }
+
+
+        public List<string> FindUsers(string query, string username)
+        {
+            List<string> users = new List<string>();
+            List<string> friends = new List<string>();
+            int f = 0;
+            string friends_aux = "";
+            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source = DB.mdb;";
+
+            string queryStringFriends =
+                        "SELECT friends from Users " +
+                        "WHERE username = '" + username + "';";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                OleDbCommand command = new OleDbCommand(queryStringFriends, connection);
+
+                try
+                {
+                    connection.Open();
+                    OleDbDataReader reader = command.ExecuteReader();
+                    reader.Read();
+                    friends_aux = reader[0].ToString();
+                    int count = 0;
+                    foreach (char c in friends_aux)
+                    {
+                        if (c == ' ')
+                            count++;
+                    }
+
+                    for (int i = 0; i <= count; i++)
+                    {
+                        friends.Add(reader[0].ToString().Split(' ')[i]);
+                    }
+
+
+                    string queryString = "SELECT username from Users " +
+                        "WHERE 1;";
+                    command = new OleDbCommand(queryString, connection);
+                    OleDbDataReader reader2 = command.ExecuteReader();
+                    reader2 = command.ExecuteReader();
+                    while (reader2.Read())
+                    {
+                        string el = (string)reader2[0];
+                        if (el.Contains(query))
+                        {
+                            f = 0;
+                            foreach (string u in friends)
+                            {
+                                if (u == el)
+                                {
+                                    f = 1;
+                                    break;
+                                }
+                            }
+                            if (f != 1)
+                            {
+                                users.Add(el);
+
+                            }
+                        }
+                    }
+
+
+                    reader2.Close();
+                    reader.Close();
+                    connection.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    //Console.WriteLine("Add friend nereusita");
+                    //return friends_aux;
+                }
+            }
+            return users;
+
+
         }
 
         public string GetStatus(string username)

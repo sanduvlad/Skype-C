@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="RmayJ1Y1O919+qneiBp730ZrKMY=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="AtFK5oaYrwVLyl6zFGuM8Owln90=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="ClientToServerHost">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="ClientToServerHost" contract="ServiceReference1.IClientToServerHandle" bindingType="basicHttpBinding" address="http://79.112.87.193:8080/ClientToServer" bindingConfiguration="ClientToServerHost">
+    <endpoint name="ClientToServerHost" contract="ServiceReference1.IClientToServerHandle" bindingType="basicHttpBinding" address="http://localhost:8080/ClientToServer" bindingConfiguration="ClientToServerHost">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://79.112.87.193:8080/ClientToServer</serializedValue>
+          <serializedValue>http://localhost:8080/ClientToServer</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

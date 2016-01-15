@@ -7,14 +7,18 @@ using System.Windows.Forms;
 using System.ServiceModel;
 
 using Interogare;
-using System.Threading;
+using OleDB;
 namespace Server
 {
     class ClientToServerHandle : IClientToServerHandle
     {
         //private Dictionary<string, string> Clients = new Dictionary<string, string>();
         // userName, channelURL //
-        private XmlDataBase db = new XmlDataBase();
+
+        
+        //private XmlDataBase db = new XmlDataBase();
+        private OleDataBase db = new OleDataBase();
+
 
         /// <summary>
         /// Returneaza URL-ul unui anumit client dat ca parametru
@@ -119,18 +123,15 @@ namespace Server
         public void ChangeStatus(string userName, String status)
         {
             db.ChangeStatus(userName, status);
-            (new Thread(() =>
+
+            //ServerToClientHandle.SetUserStatus(getClientURL(userName), userName, status);
+            foreach (KeyValuePair<string, string> pair in UsersConnected.Clients)
             {
-                //ServerToClientHandle.SetUserStatus(getClientURL(userName), userName, status);
-                foreach (KeyValuePair<string, string> pair in UsersConnected.Clients)
+                if (pair.Key != userName)
                 {
-                    if (pair.Key != userName)
-                    {
-                        ServerToClientHandle.SetUserStatus(pair.Value, userName, status);
-                    }
+                    ServerToClientHandle.SetUserStatus(pair.Value, userName, status);
                 }
-            })).Start();
-            return;
+            }
         }
 
         /// <summary>
@@ -166,10 +167,7 @@ namespace Server
         {
             //server
             db.AddMessage(fromUserName, toUserName, message);
-            (new Thread(() =>
-            {
-                ServerToClientHandle.SendMessage(message, fromUserName, getClientURL(toUserName));
-            })).Start();
+            ServerToClientHandle.SendMessage(message, fromUserName, getClientURL(toUserName));
         }
     }
 }

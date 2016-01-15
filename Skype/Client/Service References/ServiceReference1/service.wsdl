@@ -185,7 +185,7 @@
   </wsdl:binding>
   <wsdl:service name="ClientToServerHandle">
     <wsdl:port name="ClientToServerHost" binding="tns:ClientToServerHost">
-      <soap:address location="http://79.112.87.193:8080/ClientToServer" />
+      <soap:address location="http://localhost:8080/ClientToServer" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
